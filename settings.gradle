@@ -1,0 +1,2 @@
+include ':app', ':data', ':domain', ':widgetlibs'
+rootProject.name='MangaReptile'

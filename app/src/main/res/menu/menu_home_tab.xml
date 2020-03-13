@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/menu_manga" />
+
+    <item
+        android:id="@+id/tab_book"
+        android:icon="@drawable/ic_book"
+        android:title="@string/menu_light_novel" />
+
+    <item
+        android:id="@+id/tab_personal"
+        android:icon="@drawable/ic_personalcenter"
+        android:title="@string/menu_personal" />
+
+</menu>

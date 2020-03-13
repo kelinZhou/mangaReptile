@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MangaReptile</string>
+
+    <string name="image_empty_desc"></string>
+    <string name="loading_please_wait">正在加载，请稍后……</string>
+    <string name="loaded_failed_click_to_retry">加载失败，点击重试……</string>
+    <string name="poor_network_environment">网络环境差</string>
+    <string name="load_error_click_retry">网络异常，加载失败</string>
+    <string name="no_data">暂无数据</string>
+    <string name="cancel">取消</string>
+
+
+    <string name="menu_manga">漫画</string>
+    <string name="menu_light_novel">小说</string>
+    <string name="menu_personal">账户 </string>
+
+
+</resources>

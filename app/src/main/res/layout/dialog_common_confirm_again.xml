@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:lineSpacingMultiplier="1.5"
+            android:minHeight="@dimen/common_button_height"
+            android:paddingBottom="10dp"
+            android:paddingEnd="@dimen/common_padding_start_and_end"
+            android:paddingStart="@dimen/common_padding_start_and_end"
+            android:paddingTop="10dp"
+            android:textColor="@color/black_text_666666"
+            android:textSize="14sp"
+            tools:text="alskdjflaskdjf" />
+    </RelativeLayout>
+
+    <include layout="@layout/common_horizontal_parting_line" />
+
+    <Button
+        android:id="@+id/btnSure"
+        android:background="@drawable/selector_recycler_item_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_button_height"
+        android:textColor="@color/text_common_black"
+        tools:text="继续操作" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="#CDDD" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:background="@drawable/selector_recycler_item_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_button_height"
+        android:textColor="@color/text_common_black"
+        tools:text="取消操作" />
+
+</LinearLayout>

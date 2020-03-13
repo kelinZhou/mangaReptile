@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_awesome_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:gravity="center"
+            app:popupTheme="@style/common_action_bar_style"
+            app:titleTextAppearance="@style/TitleTextStyle.Main">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/BlackText.BigTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                tools:text="标题" />
+        </androidx.appcompat.widget.Toolbar>
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/base_tool_bar_line"
+        layout="@layout/common_horizontal_parting_line"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.neuifo.mangareptile.widget.NoScrollViewPager
+            android:id="@+id/main_root_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+        <me.ibrahimsn.lib.SmoothBottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:backgroundColor="@color/theme_color"
+            app:duration="300"
+            app:iconTint="@color/pink_ffb8b8"
+            app:iconTintActive="@color/black_000"
+            app:indicatorRadius="20dp"
+            app:itemPadding="15dp"
+            app:menu="@menu/menu_home_tab"
+            app:sideMargins="10dp"
+            app:textColor="@color/color_card_white_normal"
+            app:textSize="14sp" />
+
+    </LinearLayout>
+
+
+    <!--app:indicatorColor=""
+    app:itemFontFamily=""
+    app:iconSize=""
+    app:activeItem=""-->
+
+
+</LinearLayout>

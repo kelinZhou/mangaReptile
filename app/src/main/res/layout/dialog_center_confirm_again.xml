@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/selector_recycler_item_bg_10r"
+        android:layout_marginEnd="30dp">
+
+    <TextView
+            android:id="@+id/tvMsg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.5"
+            android:textColor="@color/black_333"
+            android:textSize="15sp"
+            android:layout_margin="40dp"
+            tools:text="您的位置开关处于关闭状态，可能导致定位失败。是否开启？"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/verticalLine"
+            />
+
+    <include layout="@layout/common_horizontal_parting_line"
+             android:id="@+id/partingLine"
+             android:layout_width="0dp"
+             android:layout_height="1px"
+             app:layout_constraintLeft_toLeftOf="parent"
+             app:layout_constraintRight_toRightOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/tvMsg"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintVertical_bias="0"/>
+
+
+    <LinearLayout android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/partingLine"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintBottom_toBottomOf="@+id/verticalLine"
+                  android:orientation="horizontal"
+    >
+
+
+        <Button
+                android:id="@+id/btnCancel"
+                android:textColor="@color/grey_3300000"
+                tools:text="否"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/common_button_height"
+                android:background="@drawable/selector_recycler_item_bg_10r_bl"
+                app:layout_constraintTop_toBottomOf="@+id/partingLine"
+                app:layout_constraintRight_toLeftOf="@+id/verticalLine"
+                app:layout_constraintBottom_toBottomOf="@+id/verticalLine"/>
+
+        <Button
+                android:id="@+id/btnSure"
+                android:textColor="#007AFF"
+                tools:text="是"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/common_button_height"
+                android:background="@drawable/selector_recycler_item_bg_10r_br"
+        />
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/verticalLine"
+            android:layout_height="0dp"
+            android:layout_width="1px"
+            android:background="@color/grey_line"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partingLine"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

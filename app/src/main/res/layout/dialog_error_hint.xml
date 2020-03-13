@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
+                android:paddingTop="28dp"
+                android:background="@drawable/shape_rounded_rectangle_solid_white_30r">
+
+    <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            tools:ignore="ContentDescription"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:src="@drawable/ic_dialog_error"/>
+
+    <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivIcon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:textColor="@color/black_333"
+            android:textSize="18sp"
+            tools:text="这里是标题"/>
+
+    <TextView
+            android:id="@+id/tvMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="28dp"
+            android:gravity="center"
+            android:textColor="@color/text_gray_999999"
+            android:textSize="15sp"
+            tools:text="你要吃sega吗？"/>
+
+    <TextView
+            android:id="@+id/tvPartingLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tvMsg"
+            android:background="#E5E5E5"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/tvPartingLine"
+            android:orientation="horizontal">
+
+        <Button
+                android:id="@+id/btnNegative"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="@color/text_gray_999999"
+                tools:text="取消"
+                android:background="@drawable/selector_white_item_bg_10r_bl"/>
+
+        <TextView
+                android:id="@+id/tvBtnSlicer"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#E5E5E5"/>
+
+
+        <Button
+                android:id="@+id/btnPositive"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:background="@drawable/selector_white_item_bg_10r_br"
+                android:textColor="@color/theme_color"
+                tools:text="确定"
+        />
+    </LinearLayout>
+</RelativeLayout>
