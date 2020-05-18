@@ -2,11 +2,11 @@ package com.neuifo.mangareptile.data.core
 
 import android.util.SparseArray
 import com.neuifo.data.domain.repo.LogicRepoImpl
-import com.neuifo.data.domain.repo.dmzj.AuthRepoImpl
+import com.neuifo.data.domain.repo.dmzj.DmzjRepoImpl
 import com.neuifo.domain.executor.ThreadExecutor
 import com.neuifo.domain.repo.LogicRepo
 import com.neuifo.domain.repo.Repo
-import com.neuifo.domain.repo.dmzj.AuthRepo
+import com.neuifo.domain.repo.dmzj.DmzjRepo
 import com.neuifo.mangareptile.data.proxy.IdActionDataProxy
 import com.neuifo.mangareptile.domain.util.JobExecutor
 import com.neuifo.mangareptile.domain.util.UIThread
@@ -14,7 +14,7 @@ import com.neuifo.mangareptile.domain.util.UIThread
 object API {
     private val repoCache = SparseArray<Repo>()
 
-    val DMZJ_AUTH: AuthRepo
+    val DMZJ_Dmzj: DmzjRepo
         get() = getRepo(Type.AUTH)
 
     val LOGIC: LogicRepo
@@ -42,7 +42,7 @@ object API {
         if (repo == null) {
             val context = AppModule.getContext()
             repo = when (apiType) {
-                Type.AUTH -> AuthRepoImpl(
+                Type.AUTH -> DmzjRepoImpl(
                     context
                 )
                 Type.LOGIC -> LogicRepoImpl(

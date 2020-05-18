@@ -2,7 +2,7 @@ package com.neuifo.mangareptile.ui.base.home
 
 import com.neuifo.mangareptile.ui.base.presenter.BaseFragmentPresenter
 
-class HomeFragment : BaseFragmentPresenter<HomeDelegate,HomeDelegate.HomeDelegateCallback>(){
+class HomeFragment : BaseFragmentPresenter<HomeDelegate, HomeDelegate.HomeDelegateCallback>() {
 
     override val saveDelegate: Boolean
         get() = true

@@ -5,32 +5,27 @@
     android:id="@+id/activity_main_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black_000"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <RelativeLayout
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_awesome_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:fitsSystemWindows="true">
+        android:layout_height="?android:attr/actionBarSize"
+        android:gravity="center"
+        app:popupTheme="@style/common_action_bar_style"
+        app:titleTextAppearance="@style/ThemeOverlay.AppCompat.Light">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_awesome_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:gravity="center"
-            app:popupTheme="@style/common_action_bar_style"
-            app:titleTextAppearance="@style/TitleTextStyle.Main">
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                style="@style/BlackText.BigTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="26sp"
-                tools:text="标题" />
-        </androidx.appcompat.widget.Toolbar>
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/BlackText.BigTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            tools:text="标题" />
+    </androidx.appcompat.widget.Toolbar>
 
     <include
         android:id="@+id/base_tool_bar_line"
@@ -55,8 +50,8 @@
             android:layout_height="70dp"
             app:backgroundColor="@color/theme_color"
             app:duration="300"
-            app:iconTint="@color/pink_ffb8b8"
-            app:iconTintActive="@color/black_000"
+            app:iconTint="@color/white"
+            app:iconTintActive="@color/colorAccent"
             app:indicatorRadius="20dp"
             app:itemPadding="15dp"
             app:menu="@menu/menu_home_tab"

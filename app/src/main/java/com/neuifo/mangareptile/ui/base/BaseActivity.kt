@@ -24,7 +24,6 @@ import com.lieluobo.candidate.annotation.SoftInputModeFlags
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.annotation.NetworkType
-import com.neuifo.mangareptile.data.core.AppModule
 import com.neuifo.mangareptile.event.EventBus
 import com.neuifo.mangareptile.event.EventHolder
 import com.neuifo.mangareptile.utils.MeasureUtil

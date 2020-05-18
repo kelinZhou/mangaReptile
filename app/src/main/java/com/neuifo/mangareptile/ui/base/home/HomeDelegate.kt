@@ -4,18 +4,16 @@ import android.content.Context
 import android.graphics.Color
 import android.text.TextUtils
 import android.view.Gravity
-import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import android.view.animation.Interpolator
 import androidx.fragment.app.FragmentManager
 import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.ui.base.delegate.BaseViewDelegate
 import com.neuifo.mangareptile.ui.base.flyweight.adapter.CommonFragmentStatePagerAdapter
 import kotlinx.android.extensions.LayoutContainer
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import kotlinx.android.synthetic.main.fragment_home_root.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.UIUtil
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
@@ -30,16 +28,21 @@ class HomeDelegate : BaseViewDelegate<HomeDelegate.HomeDelegateCallback>(), Layo
 
     private var navigationAdapter: CommonFragmentStatePagerAdapter? = null
     private var commonNavigator7: CommonNavigator? = null
-    private var showNumberHint = false
 
     fun init(fragmentManager: FragmentManager) {
         navigationAdapter = CommonFragmentStatePagerAdapter(fragmentManager)
+        navigationAdapter?.setSaveState(false)
+        navigationAdapter?.addPager("实时更新", UpdateComicListFragment::class.java)
         navigationAdapter?.addPager("我的订阅", TestFragment::class.java)
-        navigationAdapter?.addPager("实时更新", TestFragment::class.java)
+        viewpager.adapter = navigationAdapter
+        viewpager.setNoScroll(false)
 
-        val commonNavigator7 = CommonNavigator(context)
-        commonNavigator7.scrollPivotX = 0.65f
-        commonNavigator7.adapter = object : CommonNavigatorAdapter() {
+        commonNavigator7 = CommonNavigator(viewpager.context)
+        commonNavigator7?.adapter = object : CommonNavigatorAdapter() {
+
+            override fun getCount(): Int {
+                return 2
+            }
 
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                 val simplePagerTitleView = ColorFlipPagerTitleView(context, index)
@@ -47,37 +50,23 @@ class HomeDelegate : BaseViewDelegate<HomeDelegate.HomeDelegateCallback>(), Layo
                 //simplePagerTitleView.width = ViewUtils.getScreenWidth(context as Activity) / 2
                 //simplePagerTitleView.height = ViewUtils.sp2px(context, 60f)
                 simplePagerTitleView.normalColor = Color.parseColor("#FFFFFF")
-                simplePagerTitleView.selectedColor = Color.parseColor("#FFFFFF")
-                simplePagerTitleView.textSize = 17f
+                simplePagerTitleView.selectedColor = Color.parseColor("#00574B")
                 simplePagerTitleView.setOnClickListener { viewpager.currentItem = index }
-
                 return simplePagerTitleView
             }
 
-            override fun getCount(): Int = 2
-
-            override fun getIndicator(context: Context?): IPagerIndicator {
+            override fun getIndicator(context: Context): IPagerIndicator? {
                 val indicator = LinePagerIndicator(context)
                 indicator.mode = LinePagerIndicator.MODE_EXACTLY
-                indicator.lineHeight = UIUtil.dip2px(context, 3.0).toFloat()
-                indicator.lineWidth = 40f
+                indicator.setColors(Color.parseColor("#00574B"))
                 indicator.roundRadius = 10f
-                indicator.startInterpolator = AccelerateInterpolator() as Interpolator
+                indicator.lineWidth = 60f
                 indicator.endInterpolator = DecelerateInterpolator(2.0f)
-                indicator.setColors(Color.parseColor("#FFFFFF"))
                 return indicator
             }
-
         }
-
-        magic_indicator!!.navigator = commonNavigator7
-        viewpager.setNoScroll(false)
-        viewpager.offscreenPageLimit = 2
-
-        viewpager.adapter = navigationAdapter
-
+        magic_indicator.navigator = commonNavigator7
         ViewPagerHelper.bind(magic_indicator, viewpager)
-
     }
 
 
@@ -92,7 +81,7 @@ class HomeDelegate : BaseViewDelegate<HomeDelegate.HomeDelegateCallback>(), Layo
 
         init {
             gravity = Gravity.CENTER
-            val padding = UIUtil.dip2px(context, 30.0)
+            val padding = UIUtil.dip2px(context, 10.0)
             setPadding(padding, 0, padding, 0)
             setSingleLine()
             ellipsize = TextUtils.TruncateAt.END
