@@ -10,7 +10,14 @@ cover	String	https://images.dmzj.com/webpic/1/ruikeyutimo.JPG
 status	String	连载中
 last_update_chapter_name	String	第47卷
 last_update_chapter_id	Integer	98555
-last_updatetime	Integer	1583992455
+last_update_time	Integer	1583992455
+
+
+latest_update_chapter_name TEXT,
+latest_update_chapter_id INTEGER,
+last_read_name TEXT,
+last_read_chapter_id INTEGER,
+
  */
 class ComicUpdate(
     var id: Long,
@@ -21,5 +28,7 @@ class ComicUpdate(
     var status: String,
     var latest_update_chapter_name: String,
     var latest_update_chapter_id: Long,
-    var latest_update_time: Long
+    var latest_update_time: Long,
+    var last_read_name:String,
+    var last_read_chapter_id:Long
 )

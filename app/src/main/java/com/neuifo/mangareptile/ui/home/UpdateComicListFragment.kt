@@ -1,8 +1,8 @@
-package com.neuifo.mangareptile.ui.base.home
+package com.neuifo.mangareptile.ui.home
 
 import com.neuifo.domain.model.dmzj.ComicUpdate
 import com.neuifo.mangareptile.data.core.API
-import com.neuifo.mangareptile.ui.base.home.cell.ComicUpdateCell
+import com.neuifo.mangareptile.ui.home.cell.ComicUpdateCell
 import com.neuifo.mangareptile.ui.base.presenter.ItemListFragmentPresenter
 import io.reactivex.Observable
 

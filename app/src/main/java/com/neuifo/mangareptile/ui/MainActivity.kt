@@ -4,12 +4,9 @@ import android.os.Bundle
 import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.ui.base.BaseActivity
 import com.neuifo.mangareptile.ui.base.flyweight.adapter.CommonFragmentStatePagerAdapter
-import com.neuifo.mangareptile.ui.base.home.HomeFragment
-import com.neuifo.mangareptile.ui.base.home.UpdateComicListFragment
-import com.neuifo.mangareptile.utils.ViewUtils
+import com.neuifo.mangareptile.ui.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import me.ibrahimsn.lib.OnItemSelectedListener
-import javax.net.ssl.TrustManagerFactory
 
 class MainActivity : BaseActivity() {
 

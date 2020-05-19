@@ -9,11 +9,11 @@ authors TEXT,
 types TEXT,
 conver TEXT,
 status TEXT,
-lastest_update_chapter_name TEXT,
+latest_update_chapter_name TEXT,
 latest_update_chapter_id INTEGER,
+latest_update_time INTEGER,
 last_read_name TEXT,
 last_read_chapter_id INTEGER,
-latest_update_time INTEGER,
 
 PRIMARY KEY(id,title)
 );

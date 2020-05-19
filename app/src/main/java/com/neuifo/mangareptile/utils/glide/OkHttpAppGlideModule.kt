@@ -1,4 +1,4 @@
-package com.neuifo.mangareptile.ui.glide
+package com.neuifo.mangareptile.utils.glide
 
 import android.content.Context
 import com.bumptech.glide.Glide

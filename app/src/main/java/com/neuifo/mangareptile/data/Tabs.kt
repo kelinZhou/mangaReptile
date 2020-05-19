@@ -1,6 +1,6 @@
 package com.neuifo.mangareptile.data
 
-import com.neuifo.mangareptile.ui.base.home.HomeFragment
+import com.neuifo.mangareptile.ui.home.HomeFragment
 
 enum class Tabs(val index: Int, val klazz: Class<*>) {
 

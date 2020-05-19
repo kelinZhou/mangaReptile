@@ -1,4 +1,4 @@
-package com.neuifo.mangareptile.ui.glide
+package com.neuifo.mangareptile.utils.glide
 
 import okhttp3.OkHttpClient
 import java.security.SecureRandom

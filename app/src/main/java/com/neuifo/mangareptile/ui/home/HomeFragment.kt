@@ -1,4 +1,4 @@
-package com.neuifo.mangareptile.ui.base.home
+package com.neuifo.mangareptile.ui.home
 
 import com.neuifo.mangareptile.ui.base.presenter.BaseFragmentPresenter
 

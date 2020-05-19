@@ -1,4 +1,4 @@
-package com.neuifo.mangareptile.ui.base.home.cell
+package com.neuifo.mangareptile.ui.home.cell
 
 import android.view.View
 import com.neuifo.domain.model.dmzj.ComicUpdate

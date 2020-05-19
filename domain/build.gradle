@@ -1,6 +1,9 @@
+
 apply plugin: 'com.android.library'
+apply plugin: 'com.squareup.sqldelight'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion project.ANDROID_COMPILE_SDK_VERSION as int
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
@@ -27,6 +30,21 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sqldelight {
+        ImDB {
+            packageName = "com.neuifo.domain.beans"
+            // By default this is ["sqldelight"], and means your sqldelight will be in
+            // folders like 'src/main/db' instead of 'src/main/sqldelight'
+            sourceFolders = ["sqldelight"]
+
+            // Defaults to file("src/main/sqldelight")
+            schemaOutputDirectory = file("src/main/")
+
+            // Optionally specify schema dependencies on other gradle projects
+            //dependency project(':OtherProject')
+        }
     }
 
 }

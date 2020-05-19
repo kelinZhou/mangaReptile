@@ -1,4 +1,4 @@
-package com.neuifo.mangareptile.ui.base.home
+package com.neuifo.mangareptile.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

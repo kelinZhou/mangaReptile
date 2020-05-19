@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="lineSpacing" format="dimension"/>
+        <attr name="maxLine" format="integer"/>
+        <attr name="tags" format="string"/>
+        <attr name="tagLayout" format="reference"/>
+        <attr name="tagTextViewId" format="reference"/>
+        <attr name="tagMarkViewId" format="reference"/>
+        <attr name="lineCount" format="integer"/>
+    </declare-styleable>
+
+
+</resources>
