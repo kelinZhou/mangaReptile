@@ -1,7 +1,5 @@
 package com.neuifo.mangareptile.ui.base.search
 
-import com.lieluobo.candidate.ui.base.search.LocationSearchablePage
-
 /**
  * **描述:** 支持联想词的搜索页面。
  *

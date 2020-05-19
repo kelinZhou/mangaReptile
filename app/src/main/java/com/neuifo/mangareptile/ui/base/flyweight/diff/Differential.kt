@@ -3,7 +3,6 @@ package com.neuifo.mangareptile.ui.base.flyweight.diff
 import android.os.Bundle
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
-import com.lieluobo.candidate.ui.base.flyweight.diff.DiffModel
 
 /**
  * **描述:** 用来表示一个数据模型是可以被[androidx.recyclerview.widget.DiffUtil]所使用的。实现该接口后就只能通过重写接口中的方法来实现字段的对比。

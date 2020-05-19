@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.flyweight.decoration
+package com.neuifo.mangareptile.flyweight.decoration
 
 /**
  * Constant of RecyclerView ItemDecoration

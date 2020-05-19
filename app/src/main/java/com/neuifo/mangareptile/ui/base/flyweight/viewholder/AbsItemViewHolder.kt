@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.neuifo.mangareptile.ui.base.flyweight.adapter.SuperRecyclerViewAdapter
-import com.lieluobo.candidate.ui.base.flyweight.callback.OnItemEventListener
+import com.neuifo.mangareptile.ui.base.flyweight.callback.OnItemEventListener
 
 
 /**

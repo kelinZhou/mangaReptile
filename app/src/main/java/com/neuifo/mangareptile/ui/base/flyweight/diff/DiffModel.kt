@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.ui.base.flyweight.diff
+package com.neuifo.mangareptile.ui.base.flyweight.diff
 
 
 /**

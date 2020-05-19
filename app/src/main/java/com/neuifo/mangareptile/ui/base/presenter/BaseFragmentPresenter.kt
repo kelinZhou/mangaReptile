@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import com.neuifo.mangareptile.ui.base.BaseActivity
-import com.lieluobo.candidate.ui.base.presenter.ViewPresenter
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.mangareptile.ui.base.delegate.BaseViewDelegate
 import com.neuifo.mangareptile.ui.base.delegate.ViewDelegate

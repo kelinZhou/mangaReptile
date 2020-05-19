@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.neuifo.mangareptile.ui.base.flyweight.adapter.CommonRecyclerViewAdapter
 import com.neuifo.mangareptile.ui.base.flyweight.adapter.SuperRecyclerViewAdapter
-import com.lieluobo.candidate.ui.base.flyweight.callback.ItemHolderGenerator
-import com.lieluobo.candidate.ui.base.flyweight.callback.OnItemEventListener
+import com.neuifo.mangareptile.ui.base.flyweight.callback.ItemHolderGenerator
+import com.neuifo.mangareptile.ui.base.flyweight.callback.OnItemEventListener
 import com.neuifo.mangareptile.ui.base.flyweight.viewholder.AbsItemViewHolder
-import com.lieluobo.candidate.ui.base.presenter.ViewPresenter
+import com.neuifo.mangareptile.ui.base.presenter.ViewPresenter
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.mangareptile.AppLayerErrorCatcher
 import com.neuifo.mangareptile.R

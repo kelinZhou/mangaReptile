@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.ui.base.flyweight.callback
+package com.neuifo.mangareptile.ui.base.flyweight.callback
 
 import android.view.ViewGroup
 

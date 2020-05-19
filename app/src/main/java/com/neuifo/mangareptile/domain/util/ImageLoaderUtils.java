@@ -7,6 +7,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.Headers;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -16,12 +19,32 @@ import com.bumptech.glide.signature.ObjectKey;
 import com.neuifo.mangareptile.R;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Description : 图片加载工具类 使用glide框架封装
  */
 public class ImageLoaderUtils {
+
+    public static Map<String, String> getHeaders() {
+        Map<String, String> header = new HashMap<>();
+        //不一定都要添加，具体看原站的请求信息
+        header.put("Referer", "http://images.dmzj.com/");
+        header.put("Host", "images.dmzj.com");
+        return header;
+    }
+
+
+    public static Headers headers = new Headers() {
+        @Override
+        public Map<String, String> getHeaders() {
+            return getHeaders();
+        }
+    };
 
     public static void display(Context context, ImageView imageView, String url, int placeholder, int error) {
         if (imageView == null) {
@@ -108,15 +131,17 @@ public class ImageLoaderUtils {
     }
 
     public static void displayRoundCorners(ImageView imageView, String url, int cornerRedis) {
+        RoundedCornersTransformation roundedCornersTransformation = new RoundedCornersTransformation(cornerRedis, 0, RoundedCornersTransformation.CornerType.ALL);
         Glide.with(imageView.getContext()).load(transFerUrl(url))
-                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)
-                        .centerCrop()
-                        .transforms(new RoundedCorners(cornerRedis)))
+                .optionalTransform(roundedCornersTransformation)
                 .into(imageView);
     }
 
-    private static String transFerUrl(String url) {
-        return url;
+    private static GlideUrl transFerUrl(String url) {
+        GlideUrl glideUrl = new GlideUrl(url, new LazyHeaders.Builder()
+                .addHeader("Referer", "http://images.dmzj.com/")
+                .build());
+        return glideUrl;
     }
 
     public static void displayRound(ImageView imageView, String url, int res, Transformation transformation) {

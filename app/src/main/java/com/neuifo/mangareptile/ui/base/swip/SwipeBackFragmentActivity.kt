@@ -1,11 +1,11 @@
-package com.lieluobo.candidate.ui.base.swip
+package com.neuifo.mangareptile.ui.base.swip
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import com.lieluobo.candidate.ui.base.BaseFragmentActivity
+import com.neuifo.mangareptile.ui.base.BaseFragmentActivity
 import com.neuifo.mangareptile.widget.SwipeBackLayout
 
 

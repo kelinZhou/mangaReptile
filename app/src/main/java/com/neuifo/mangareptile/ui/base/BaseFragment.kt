@@ -11,7 +11,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.lieluobo.candidate.annotation.SoftInputModeFlags
+import com.neuifo.mangareptile.annotation.SoftInputModeFlags
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.mangareptile.annotation.NetworkType
 import com.neuifo.mangareptile.data.core.AppModule

@@ -8,10 +8,10 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.lieluobo.candidate.ui.base.flyweight.callback.OnItemEventListener
-import com.lieluobo.candidate.ui.base.flyweight.diff.DiffModel
+import com.neuifo.mangareptile.ui.base.flyweight.callback.OnItemEventListener
+import com.neuifo.mangareptile.ui.base.flyweight.diff.DiffModel
 import com.neuifo.mangareptile.ui.base.flyweight.diff.Differential
-import com.lieluobo.candidate.ui.base.flyweight.diff.annotation.*
+import com.neuifo.mangareptile.ui.base.flyweight.diff.annotation.*
 import java.lang.ClassCastException
 import java.lang.RuntimeException
 import java.util.concurrent.Executors

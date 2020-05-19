@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.ui.base.presenter
+package com.neuifo.mangareptile.ui.base.presenter
 
 import android.content.Context
 import com.neuifo.mangareptile.ui.base.delegate.ViewDelegate

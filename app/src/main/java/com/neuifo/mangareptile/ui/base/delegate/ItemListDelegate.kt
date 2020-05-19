@@ -4,7 +4,7 @@ import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
-import com.lieluobo.candidate.ui.base.flyweight.callback.OnItemEventListener
+import com.neuifo.mangareptile.ui.base.flyweight.callback.OnItemEventListener
 import com.neuifo.mangareptile.ui.base.flyweight.viewholder.AbsItemViewHolder
 import com.neuifo.mangareptile.ui.base.listcell.Cell
 

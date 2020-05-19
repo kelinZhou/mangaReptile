@@ -89,7 +89,7 @@ class StatePageLayout @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     override fun generateDefaultLayoutParams(): LayoutParams {
-        return LayoutParams(-1, -1)
+        return LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
     }
 
     private fun inflateView(layoutRes: Int): View? {

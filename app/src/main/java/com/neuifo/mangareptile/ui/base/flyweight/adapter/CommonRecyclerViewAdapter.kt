@@ -3,8 +3,8 @@ package com.neuifo.mangareptile.ui.base.flyweight.adapter
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import com.lieluobo.candidate.ui.base.flyweight.callback.ItemHolderGenerator
-import com.lieluobo.candidate.ui.base.flyweight.callback.OnItemEventListener
+import com.neuifo.mangareptile.ui.base.flyweight.callback.ItemHolderGenerator
+import com.neuifo.mangareptile.ui.base.flyweight.callback.OnItemEventListener
 
 /**
  * **创建人:** 通用的支持DiffUtil的RecyclerView适配器。

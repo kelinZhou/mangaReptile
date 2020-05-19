@@ -9,8 +9,8 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.Size
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.lieluobo.candidate.ui.base.flyweight.callback.ItemHolderGenerator
-import com.lieluobo.candidate.ui.base.flyweight.callback.OnItemEventListener
+import com.neuifo.mangareptile.ui.base.flyweight.callback.ItemHolderGenerator
+import com.neuifo.mangareptile.ui.base.flyweight.callback.OnItemEventListener
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.mangareptile.R
 import com.neuifo.widgetlibs.statelayout.FixedRecyclerView

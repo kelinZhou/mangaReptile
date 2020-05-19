@@ -5,6 +5,7 @@ import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.ui.base.BaseActivity
 import com.neuifo.mangareptile.ui.base.flyweight.adapter.CommonFragmentStatePagerAdapter
 import com.neuifo.mangareptile.ui.base.home.HomeFragment
+import com.neuifo.mangareptile.ui.base.home.UpdateComicListFragment
 import com.neuifo.mangareptile.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import me.ibrahimsn.lib.OnItemSelectedListener
@@ -29,10 +30,5 @@ class MainActivity : BaseActivity() {
                 main_root_pager.currentItem = pos
             }
         })
-
-        assets.open("lie.pem")
-
-        ViewUtils.decodeBoldString("laksdjflkasdjfalsdjkaj")
-        //TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
     }
 }

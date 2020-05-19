@@ -116,6 +116,35 @@ function hook_assest(){
 }
 
 
+function hook_dmzj(){
+    Java.perform(function() {
+        var ClassName = "com.nostra13.universalimageloader.core.ImageLoader";
+        var ImageLoader = Java.use(ClassName);
+        console.log("hook ks base adapter:", ImageLoader);
+        ImageLoader.displayImage.overload('java.lang.String','android.widget.ImageView').implementation = function (arg0,arg1) {
+            console.log("displayImage:", arg0);
+            this.displayImage(arg0,arg1);
+        };
+
+
+        var ClassName2 = "com.dmzj.manhua.ui.adapter.KDBaseAdapter";
+        var adapter2 = Java.use(ClassName2);
+        console.log("hook ks base adapter:", adapter2);
+        adapter2.showImages.overload('android.widget.ImageView','java.lang.String').implementation = function (arg0,arg1) {
+            console.log("showImages:", arg1);
+            this.showImages(arg0,arg1);
+        };
+
+        var ClassName3 = "com.dmzj.manhua.utils.ImgUtils";
+        var imageUtils = Java.use(ClassName3);
+        imageUtils.setImg.overload('android.widget.ImageView','java.lang.String').implementation = function (arg0,arg1) {
+            console.log("setImg:", arg1);
+            this.setImg(arg0,arg1);
+        };
+    });
+}
+
+
 function hook_ssl() {
     Java.perform(function() {
         var ClassName = "com.android.org.conscrypt.Platform";
@@ -268,4 +297,4 @@ function hook_inner_class() {
 }
 
 //setTimeout(main, 0);
-setImmediate(hook_assest);
+setImmediate(hook_dmzj);

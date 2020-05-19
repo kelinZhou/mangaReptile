@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.ui.base.flyweight.diff.annotation
+package com.neuifo.mangareptile.ui.base.flyweight.diff.annotation
 
 /**
  * **描述:** 用来表示一个字段是需要展示在UI中的字段，这个字段如果发生改变就需要刷新UI。

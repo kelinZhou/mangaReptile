@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.annotation
+package com.neuifo.mangareptile.annotation
 
 import android.annotation.SuppressLint
 import android.view.WindowManager

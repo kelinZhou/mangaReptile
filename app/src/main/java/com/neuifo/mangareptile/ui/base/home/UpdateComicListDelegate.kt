@@ -12,10 +12,13 @@ class UpdateComicListDelegate :
     override fun onCreateLayoutManager(): RecyclerView.LayoutManager {
         return GridLayoutManager(context, 3).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int = 1
+                override fun getSpanSize(position: Int): Int {
+                    return if (position >= adapter.itemCount - 1) 3 else 1
+                }
             }
         }
     }
+
 
     interface UpdateComicListDelegateCallBack :
         ItemListDelegateCallback<ComicUpdateCell> {

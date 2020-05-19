@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.ui.base.search
+package com.neuifo.mangareptile.ui.base.search
 
 import com.neuifo.mangareptile.ui.base.search.SearchablePage
 

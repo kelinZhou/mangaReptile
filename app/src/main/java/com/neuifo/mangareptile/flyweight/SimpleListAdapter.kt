@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-import com.lieluobo.candidate.ui.base.flyweight.callback.OnItemEventListener
+import com.neuifo.mangareptile.ui.base.flyweight.callback.OnItemEventListener
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.mangareptile.ui.base.flyweight.viewholder.AbsItemViewHolder
 

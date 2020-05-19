@@ -16,7 +16,7 @@ import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import com.kelin.apkUpdater.util.NetWorkStateUtil
-import com.lieluobo.candidate.ui.base.presenter.ViewPresenter
+import com.neuifo.mangareptile.ui.base.presenter.ViewPresenter
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.domain.exception.ApiException
 import com.neuifo.mangareptile.R
@@ -24,7 +24,6 @@ import com.neuifo.mangareptile.data.core.AppModule
 import com.neuifo.mangareptile.domain.model.SimpleTextWatch
 import com.neuifo.widgetlibs.statelayout.StatePage
 import com.neuifo.widgetlibs.statelayout.StatePageLayout
-import kotlinx.android.extensions.CacheImplementation
 
 /**
  * **描述:** Delegate的基类，所有的Delegate都必须改类的派生类。
@@ -48,6 +47,7 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
     protected val viewCallback: VC by lazy { viewPresenter!!.viewCallback }
 
     private val mOnCLickListener: View.OnClickListener by lazy { InnerOnclickListener() }
+
     /**
      * 所有界面都必须有重试和加载的view
      */
@@ -69,7 +69,8 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
         get() = StatePage.NOTHING_STATE
 
     protected val context: Context
-        get() = viewPresenter?.getContext() ?: throw NullPointerException("the viewPresenter is null object!")
+        get() = viewPresenter?.getContext()
+            ?: throw NullPointerException("the viewPresenter is null object!")
 
     protected val applicationContext: Context
         get() = context.applicationContext
@@ -105,7 +106,8 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
                 defaultRetryOption.title = getString(R.string.poor_network_environment)
             } else {
                 defaultRetryOption.icon = R.drawable.img_error_icon
-                defaultRetryOption.title = e?.displayMessage ?: getString(R.string.load_error_click_retry)
+                defaultRetryOption.title =
+                    e?.displayMessage ?: getString(R.string.load_error_click_retry)
             }
             refreshStatePageView(retryView, defaultRetryOption)
             statePage.showRetryView()
@@ -128,7 +130,8 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
     override fun presentView(viewPresenter: ViewPresenter<VC>, savedInstanceState: Bundle?) {}
 
     @CallSuper
-    override fun bindView(viewPresenter: ViewPresenter<VC>) {}
+    override fun bindView(viewPresenter: ViewPresenter<VC>) {
+    }
 
     @CallSuper
     override fun unbindView() {
@@ -140,57 +143,86 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
     }
 
     protected fun getString(@StringRes stringResId: Int): String {
-        return (viewPresenter?.getContext()?: AppModule.getContext()).resources.getString(stringResId)
+        return (viewPresenter?.getContext() ?: AppModule.getContext()).resources.getString(
+            stringResId
+        )
     }
 
     protected fun getColor(@ColorRes colorId: Int): Int {
-        return ContextCompat.getColor(viewPresenter?.getContext()?:AppModule.getContext(), colorId)
+        return ContextCompat.getColor(
+            viewPresenter?.getContext() ?: AppModule.getContext(),
+            colorId
+        )
     }
 
 
     protected fun getColorStateList(@ColorRes colorStateListId: Int): ColorStateList {
-        return AppCompatResources.getColorStateList(viewPresenter?.getContext()?:AppModule.getContext(), colorStateListId)
+        return AppCompatResources.getColorStateList(
+            viewPresenter?.getContext() ?: AppModule.getContext(), colorStateListId
+        )
     }
 
     protected fun getDrawable(@DrawableRes drawableId: Int): Drawable? {
-        return AppCompatResources.getDrawable(viewPresenter?.getContext()?:AppModule.getContext(), drawableId)
+        return AppCompatResources.getDrawable(
+            viewPresenter?.getContext() ?: AppModule.getContext(),
+            drawableId
+        )
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val statePageLayout = StatePageLayout(container?.context?:context)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val statePageLayout = StatePageLayout(container?.context ?: context)
         statePageLayout.isFocusable = false
         statePageLayout.isClickable = false
 
         val rootView = inflater.inflate(rootLayoutId, container, false)
         val dataView = rootView.findViewById<View>(dataViewId)
         if (dataView == null || dataView === rootView) {
-            statePageLayout.init(pageStateFlags, loadingStateLayout, retryStateLayout, emptyStateLayout, rootView)
+            statePageLayout.init(
+                pageStateFlags,
+                loadingStateLayout,
+                retryStateLayout,
+                emptyStateLayout,
+                rootView
+            )
             containerView = statePageLayout
         } else {
-            statePageLayout.init(pageStateFlags, loadingStateLayout, retryStateLayout, emptyStateLayout, dataView)
+            statePageLayout.init(
+                pageStateFlags,
+                loadingStateLayout,
+                retryStateLayout,
+                emptyStateLayout,
+                dataView
+            )
             containerView = rootView
         }
         this.statePage = statePageLayout
-        statePageLayout.emptyView?.findViewById<View>(R.id.btnStatePageButton)?.setOnClickListener { onEmptyButtonClick() }
+        statePageLayout.emptyView?.findViewById<View>(R.id.btnStatePageButton)
+            ?.setOnClickListener { onEmptyButtonClick() }
         refreshEmptyView()
         refreshLoadingView()
-        statePageLayout.loadingView?.addOnAttachStateChangeListener(object :View.OnAttachStateChangeListener{
+        statePageLayout.loadingView?.addOnAttachStateChangeListener(object :
+            View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(v: View?) {
-                val loadingIcon = statePageLayout.loadingView?.findViewById<ImageView>(R.id.ivStatePageIcon)?.drawable
+                val loadingIcon =
+                    statePageLayout.loadingView?.findViewById<ImageView>(R.id.ivStatePageIcon)?.drawable
                 if (loadingIcon != null && loadingIcon is AnimationDrawable) {
                     loadingIcon.start()
                 }
             }
 
             override fun onViewDetachedFromWindow(v: View?) {
-                val loadingIcon = statePageLayout.loadingView?.findViewById<ImageView>(R.id.ivStatePageIcon)?.drawable
+                val loadingIcon =
+                    statePageLayout.loadingView?.findViewById<ImageView>(R.id.ivStatePageIcon)?.drawable
                 if (loadingIcon != null && loadingIcon is AnimationDrawable) {
                     loadingIcon.stop()
                 }
             }
 
         })
-
         return containerView!!
     }
 
@@ -242,7 +274,8 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
     }
 
     override fun postDelayed(delayMillis: Long, runner: () -> Unit) {
-        containerView?.postDelayed(runner, delayMillis) ?: LogHelper.system.e("containerView is Null Object!")
+        containerView?.postDelayed(runner, delayMillis)
+            ?: LogHelper.system.e("containerView is Null Object!")
     }
 
     protected fun listenerTextChanged(vararg views: EditText) {
@@ -359,7 +392,12 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
         var btnBackground: Int
     }
 
-    class SimpleStateOption(override var icon: Int, override var title: String, override var subTitle: String = "", override var btnText: String = "") :
+    class SimpleStateOption(
+        override var icon: Int,
+        override var title: String,
+        override var subTitle: String = "",
+        override var btnText: String = ""
+    ) :
         StateOption {
 
         override var titleColor: Int = 0

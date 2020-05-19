@@ -20,7 +20,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.TaskStackBuilder
 import androidx.fragment.app.Fragment
 
-import com.lieluobo.candidate.annotation.SoftInputModeFlags
+import com.neuifo.mangareptile.annotation.SoftInputModeFlags
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.annotation.NetworkType

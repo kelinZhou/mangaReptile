@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.ui.base
+package com.neuifo.mangareptile.ui.base
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,6 @@ import com.neuifo.mangareptile.BuildConfig
 import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.SystemError
 import com.neuifo.mangareptile.ui.CommonErrorFragment
-import com.neuifo.mangareptile.ui.base.BaseActivity
 import com.neuifo.mangareptile.utils.ToastUtil
 
 /**

@@ -54,6 +54,8 @@ interface Cell : LayoutContainer {
 
     fun setIsRecyclable(recyclable: Boolean)
 
+    fun getItemSpanSize(totalSpanCount: Int): Int
+
     val itemClickable: Boolean
 
     val itemLongClickable: Boolean

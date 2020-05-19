@@ -3,7 +3,7 @@ package com.neuifo.mangareptile.ui.base.delegate
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.CallSuper
-import com.lieluobo.candidate.ui.base.presenter.ViewPresenter
+import com.neuifo.mangareptile.ui.base.presenter.ViewPresenter
 import com.neuifo.widgetlibs.statelayout.StatePage
 
 /**

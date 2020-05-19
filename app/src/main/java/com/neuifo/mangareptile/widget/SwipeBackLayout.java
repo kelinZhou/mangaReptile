@@ -18,7 +18,7 @@ import androidx.customview.widget.ViewDragHelper;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.lieluobo.candidate.ui.base.swip.SwipeBackFragmentActivity;
+import com.neuifo.mangareptile.ui.base.swip.SwipeBackFragmentActivity;
 import com.neuifo.mangareptile.R;
 import com.neuifo.mangareptile.ui.base.swip.SwipeBackActivity;
 import com.neuifo.mangareptile.ui.base.swip.SwipeBackFragment;

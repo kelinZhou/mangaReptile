@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.ui.base.flyweight.diff.annotation
+package com.neuifo.mangareptile.ui.base.flyweight.diff.annotation
 
 import java.lang.annotation.Inherited
 

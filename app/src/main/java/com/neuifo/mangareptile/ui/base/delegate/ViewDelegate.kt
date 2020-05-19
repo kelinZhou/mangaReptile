@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.lieluobo.candidate.ui.base.presenter.ViewPresenter
+import com.neuifo.mangareptile.ui.base.presenter.ViewPresenter
 import kotlinx.android.extensions.LayoutContainer
 
 /**

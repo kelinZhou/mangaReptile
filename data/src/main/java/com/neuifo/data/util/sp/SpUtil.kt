@@ -1,4 +1,4 @@
-package com.lieluobo.candidate.data.utils.sp
+package com.neuifo.data.util.sp
 
 import android.content.Context
 import android.content.SharedPreferences.Editor

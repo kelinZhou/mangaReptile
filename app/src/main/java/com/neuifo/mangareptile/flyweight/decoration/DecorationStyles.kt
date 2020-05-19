@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
-import com.lieluobo.candidate.flyweight.decoration.RecyclerViewItemDecoration
 import com.neuifo.mangareptile.utils.MeasureUtil
 
 /**

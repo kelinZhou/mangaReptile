@@ -9,7 +9,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.telephony.TelephonyManager
-import com.lieluobo.candidate.data.utils.sp.SpUtil
+import com.neuifo.data.util.sp.SpUtil
 import java.lang.Exception
 import java.util.*
 

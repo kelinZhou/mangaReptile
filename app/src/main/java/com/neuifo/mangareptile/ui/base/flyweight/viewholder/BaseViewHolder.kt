@@ -34,7 +34,7 @@ abstract class BaseViewHolder protected constructor(view:View, initEnable: Boole
      */
     @get:DrawableRes
     protected open val itemBackgroundResource: Int
-        get() = R.drawable.selector_recycler_item_bg
+        get() = R.drawable.selector_recycler_item_bg_white
 
 
     @get:IdRes

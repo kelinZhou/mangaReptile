@@ -58,11 +58,13 @@ abstract class SimpleCell : Cell {
 
     protected abstract fun onBindData(iv: View)
 
-    final override fun onItemClick(context: Context, position: Int) = onItemClick(getItemView(), context, position)
+    final override fun onItemClick(context: Context, position: Int) =
+        onItemClick(getItemView(), context, position)
 
     protected open fun onItemClick(iv: View, context: Context, position: Int) {}
 
-    final override fun onItemLongClick(context: Context, position: Int) = onItemLongClick(getItemView(), context, position)
+    final override fun onItemLongClick(context: Context, position: Int) =
+        onItemLongClick(getItemView(), context, position)
 
     protected open fun onItemLongClick(iv: View, context: Context, position: Int) {}
 
@@ -88,7 +90,9 @@ abstract class SimpleCell : Cell {
         get() = 0
 
     override val itemBackgroundResource: Int
-        get() = R.drawable.selector_recycler_item_bg
+        get() = R.drawable.selector_recycler_item_bg_white
+
+    override fun getItemSpanSize(totalSpanCount: Int): Int = totalSpanCount
 
     override fun needFilterDoubleClick(v: View): Boolean = true
 
@@ -113,7 +117,8 @@ abstract class SimpleCell : Cell {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <V : View> getItemView(): V = (parent!!.itemView as? V) ?: throw ClassCastException("${parent!!.itemView.javaClass.simpleName} can't case be V!")
+    fun <V : View> getItemView(): V = (parent!!.itemView as? V)
+        ?: throw ClassCastException("${parent!!.itemView.javaClass.simpleName} can't case be V!")
 
     @Suppress("UNCHECKED_CAST")
     fun <V : View> getItemViewOrNull(): V? = (parent?.itemView as? V)
@@ -153,7 +158,11 @@ abstract class SimpleCell : Cell {
         tv.setCompoundDrawables(null, null, drawable, null)
     }
 
-    fun setDrawableStartAndEnd(tv: TextView, @DrawableRes drawableStart: Int, @DrawableRes drawableEnd: Int) {
+    fun setDrawableStartAndEnd(
+        tv: TextView,
+        @DrawableRes drawableStart: Int,
+        @DrawableRes drawableEnd: Int
+    ) {
         val start = getDrawable(drawableStart)
         start?.setBounds(0, 0, start.minimumWidth, start.minimumHeight)
         val end = getDrawable(drawableEnd)

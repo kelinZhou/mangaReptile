@@ -34,11 +34,11 @@
             android:name="notch.config"
             android:value="portrait|landscape" />
 
-
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:launchMode="singleTask"
+            android:networkSecurityConfig="@xml/network_security_config"
             android:theme="@style/AppTheme.Common"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
