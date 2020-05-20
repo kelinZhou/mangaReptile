@@ -9,8 +9,7 @@ import com.neuifo.data.converter.CommonConverter
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.data.interceptor.HeadTokenInterceptor
 import com.neuifo.data.util.RetrofitServiceFactory
-import com.neuifo.domain.model.dmzj.ComicUpdate
-import com.neuifo.domain.model.dmzj.RecommendItem
+import com.neuifo.domain.model.dmzj.*
 import com.neuifo.domain.repo.dmzj.DmzjRepo
 import com.neuifo.domain.request.AuthRequest
 import com.neuifo.domain.utils.DateHelper
@@ -73,6 +72,13 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
                     }
                 }
             }
+        }
+    }
+
+
+    override fun getComicDetail(id: Long, page: Int, size: Int): Observable<ComicDetailWarpper> {
+        return dmzjApi.getComicDetail(id).map {
+            ComicDetailWarpper(it, mutableListOf())
         }
     }
 

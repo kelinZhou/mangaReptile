@@ -1,22 +1,29 @@
 package com.neuifo.mangareptile.ui.home.cell
 
 import android.view.View
+import androidx.core.view.ViewCompat
+import com.hw.ycshareelement.transition.IShareElements
+import com.hw.ycshareelement.transition.ShareElementInfo
 import com.neuifo.domain.model.dmzj.ComicUpdate
 import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.domain.util.ImageLoaderUtils
 import com.neuifo.mangareptile.ui.base.listcell.SimpleCell
-import com.neuifo.mangareptile.utils.notNull
 import kotlinx.android.synthetic.main.item_comic.view.*
 
-class ComicUpdateCell(private var comicUpdate: ComicUpdate) : SimpleCell() {
+class ComicUpdateCell(var comicUpdate: ComicUpdate) : SimpleCell(), IShareElements {
 
 
     override fun onBindData(iv: View) {
         ImageLoaderUtils.displayRoundCorners(iv.item_comic_cover, comicUpdate.cover, 20)
+        ViewCompat.setTransitionName(iv.item_comic_cover,comicUpdate.cover)
         iv.item_comic_title.text = comicUpdate.title
         iv.item_comic_update_chapter.text = comicUpdate.updateContent()
         iv.item_comic_read_chapter.text = comicUpdate.readContent()
 
+    }
+
+    override fun getShareElements(): Array<ShareElementInfo<ComicUpdate>> {
+        return arrayOf(ShareElementInfo<ComicUpdate>(getView(R.id.item_comic_cover), comicUpdate))
     }
 
     override val itemClickable: Boolean

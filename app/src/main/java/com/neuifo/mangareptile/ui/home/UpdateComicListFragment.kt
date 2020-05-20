@@ -1,9 +1,13 @@
 package com.neuifo.mangareptile.ui.home
 
+import com.hw.ycshareelement.YcShareElement
+import com.hw.ycshareelement.transition.IShareElementSelector
+import com.hw.ycshareelement.transition.ShareElementInfo
 import com.neuifo.domain.model.dmzj.ComicUpdate
 import com.neuifo.mangareptile.data.core.API
-import com.neuifo.mangareptile.ui.home.cell.ComicUpdateCell
+import com.neuifo.mangareptile.ui.Navigator
 import com.neuifo.mangareptile.ui.base.presenter.ItemListFragmentPresenter
+import com.neuifo.mangareptile.ui.home.cell.ComicUpdateCell
 import io.reactivex.Observable
 
 class UpdateComicListFragment :
@@ -26,6 +30,22 @@ class UpdateComicListFragment :
     ): MutableList<ComicUpdate> {
         initialData.addAll(data)
         return initialData
+    }
+
+
+    override fun onInterceptListItemClick(position: Int, item: ComicUpdateCell): Boolean {
+        val options = YcShareElement.buildOptionsBundle(activity!!, item)
+        Navigator.jumpToComicDetail(
+            requireActivity(),
+            item.comicUpdate.id,
+            options
+        ) { resultCode, data ->
+            YcShareElement.onActivityReenter(requireActivity(), resultCode, data,
+                IShareElementSelector { list: MutableList<ShareElementInfo<*>> ->
+                    //mFragment.selectShareElement(list[0])
+                })
+        }
+        return super.onInterceptListItemClick(position, item)
     }
 
     override fun getApiObservable(

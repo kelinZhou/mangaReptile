@@ -47,6 +47,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".ui.detail.ComicDetailActivity"
+            android:theme="@style/AppTheme.Common" />
+
+
     </application>
 
 </manifest>

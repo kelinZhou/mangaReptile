@@ -5,6 +5,7 @@ import com.neuifo.data.cache.basic.ComicCache
 import com.neuifo.data.cache.helper.ComicDetailDbOpenHelper
 import com.neuifo.data.util.DbModule
 import com.neuifo.domain.beans.ComicDB
+import com.neuifo.domain.model.dmzj.ComicDetail
 import com.neuifo.domain.model.dmzj.ComicUpdate
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.runtime.rx.asObservable
@@ -41,5 +42,22 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
                     )
                 }.toMutableList()
             }
+    }
+
+    override fun saveComicDetail(detail: ComicDetail) {
+        comicDB.dbComicDetailInfoQueries.transaction {
+            comicDB.dbComicDetailInfoQueries.save_comic_info(
+                detail.id,
+                detail.title,
+                detail.authors.joinToString("/") { it.name },
+                detail.types.joinToString("/") { it.name },
+                detail.cover,
+                detail.status.joinToString("/") { it.name },
+                detail.latest_update_chapter_name,
+                detail.latest_update_chapter_id,
+                detail.latest_update_time,
+                detail.description
+            )
+        }
     }
 }

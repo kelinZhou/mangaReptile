@@ -1,5 +1,7 @@
 package com.neuifo.domain.model.dmzj
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -37,8 +39,7 @@ class ComicUpdate(
     var latest_update_time: Long,
     var last_read_name: String,
     var last_read_chapter_id: Long
-) : Comparable<ComicUpdate> {
-
+) : Comparable<ComicUpdate>, Parcelable {
     override fun compareTo(other: ComicUpdate): Int {
         return if (this.latest_update_time > other.latest_update_time) -1 else 1
     }
@@ -57,6 +58,36 @@ class ComicUpdate(
         } else {
             "看到:${last_read_name}"
         }
+    }
+
+    constructor(source: Parcel) : this(
+        source.readLong(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readLong(),
+        source.readLong(),
+        source.readString(),
+        source.readLong()
+    )
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeLong(id)
+        writeString(title)
+        writeString(authors)
+        writeString(types)
+        writeString(cover)
+        writeString(status)
+        writeString(latest_update_chapter_name)
+        writeLong(latest_update_chapter_id)
+        writeLong(latest_update_time)
+        writeString(last_read_name)
+        writeLong(last_read_chapter_id)
     }
 
     companion object {
@@ -78,6 +109,12 @@ class ComicUpdate(
                 last_read_name ?: "未读",
                 last_read_chapter_id ?: 0L
             )
+        }
+
+        @JvmField
+        val CREATOR: Parcelable.Creator<ComicUpdate> = object : Parcelable.Creator<ComicUpdate> {
+            override fun createFromParcel(source: Parcel): ComicUpdate = ComicUpdate(source)
+            override fun newArray(size: Int): Array<ComicUpdate?> = arrayOfNulls(size)
         }
     }
 }

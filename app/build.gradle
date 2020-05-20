@@ -60,7 +60,7 @@ dependencies {
 
     implementation 'com.github.hackware1993:MagicIndicator:+'
     implementation 'com.github.kelinZhou:ApkUpdater:2.2.3'
-    implementation 'com.github.kelinZhou:OkPermission:+'
+    //implementation 'com.github.kelinZhou:OkPermission:+'
 
     implementation project(':data')
     implementation project(':widgetlibs')
