@@ -1,0 +1,18 @@
+--public static final String USER_STATUS = "user_status";
+--private String bind_phone;
+--private String dmzj_token;
+--private String email;
+--private String nickname;
+--private String passwd;
+--private String photo;
+--private int status;
+--private String uid;
+
+
+CREATE TABLE IF NOT EXISTS dmzj_user_info(
+user_id INTEGER NOT NULL,
+
+
+
+PRIMARY KEY(user_id)
+);

@@ -4,9 +4,6 @@ package com.neuifo.mangareptile.event
 import android.net.ConnectivityManager
 import com.neuifo.mangareptile.annotation.NetworkType
 
-/**
- * Created by wangshenglong on 16/12/5.
- */
 
 object EventHolder {
 

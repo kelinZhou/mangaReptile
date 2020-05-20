@@ -14,8 +14,8 @@ class ComicUpdateCell(private var comicUpdate: ComicUpdate) : SimpleCell() {
     override fun onBindData(iv: View) {
         ImageLoaderUtils.displayRoundCorners(iv.item_comic_cover, comicUpdate.cover, 20)
         iv.item_comic_title.text = comicUpdate.title
-        iv.item_comic_read_chapter.text =
-            "更新:${comicUpdate.latest_update_chapter_name.notNull()}/看到:0话"
+        iv.item_comic_update_chapter.text = comicUpdate.updateContent()
+        iv.item_comic_read_chapter.text = comicUpdate.readContent()
 
     }
 

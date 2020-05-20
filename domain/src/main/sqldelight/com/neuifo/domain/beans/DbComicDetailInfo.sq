@@ -1,0 +1,27 @@
+
+CREATE TABLE IF NOT EXISTS comic_detail_info(
+id INTEGER NOT NULL,
+title TEXT NOT NULL,
+authors TEXT,
+types TEXT,
+conver TEXT,
+status TEXT,
+latest_update_chapter_name TEXT,
+latest_update_chapter_id INTEGER,
+latest_update_time INTEGER,
+last_read_name TEXT,
+last_read_chapter_id INTEGER  DEFAULT 0,
+description TEXT,
+
+PRIMARY KEY(id,title)
+);
+
+
+query_list_comic:
+SELECT id,last_read_name,last_read_chapter_id FROM comic_detail_info
+WHERE id IN ?;
+
+
+save_comic_info:
+REPLACE INTO comic_detail_info(id,title,authors,types,conver,status,latest_update_chapter_name,latest_update_chapter_id,latest_update_time,last_read_name,last_read_chapter_id)
+VALUES(?,?,?,?,?,?,?,?,?,?,?);

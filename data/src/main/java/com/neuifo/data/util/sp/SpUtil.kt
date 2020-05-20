@@ -2,7 +2,6 @@ package com.neuifo.data.util.sp
 
 import android.content.Context
 import android.content.SharedPreferences.Editor
-import com.neuifo.data.util.sp.SecurePreferences
 
 
 /**

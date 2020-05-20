@@ -20,6 +20,14 @@ class UpdateComicListFragment :
         }
     }
 
+    override fun addMoreData(
+        initialData: MutableList<ComicUpdate>,
+        data: MutableList<ComicUpdate>
+    ): MutableList<ComicUpdate> {
+        initialData.addAll(data)
+        return initialData
+    }
+
     override fun getApiObservable(
         id: String,
         page: Int,

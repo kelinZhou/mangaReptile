@@ -5,6 +5,7 @@ import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.ui.base.BaseActivity
 import com.neuifo.mangareptile.ui.base.flyweight.adapter.CommonFragmentStatePagerAdapter
 import com.neuifo.mangareptile.ui.home.HomeFragment
+import com.neuifo.mangareptile.ui.home.TestFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import me.ibrahimsn.lib.OnItemSelectedListener
 
@@ -19,8 +20,8 @@ class MainActivity : BaseActivity() {
         val navigationAdapter = CommonFragmentStatePagerAdapter(supportFragmentManager)
         navigationAdapter.setSaveState(false)
         navigationAdapter.addPager("测试1", HomeFragment::class.java)
-        navigationAdapter.addPager("测试2", HomeFragment::class.java)
-        navigationAdapter.addPager("测试3", HomeFragment::class.java)
+        navigationAdapter.addPager("测试2", TestFragment::class.java)
+        navigationAdapter.addPager("测试3", TestFragment::class.java)
         main_root_pager.adapter = navigationAdapter
         bottomBar.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelect(pos: Int) {

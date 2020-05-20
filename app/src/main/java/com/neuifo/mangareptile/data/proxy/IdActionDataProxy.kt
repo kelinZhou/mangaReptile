@@ -84,9 +84,9 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
 
         useCase.execute(observer)
 
-        mSubscriptions.clearAllUnSubscribed()
-//        mSubscriptions.add(observer)
-        return null
+        //mSubscriptions.clearAllUnSubscribed()
+        mSubscriptions.add(observer)
+        return observer
     }
 
     private fun isExceedMaxErrorCount(id: ID, action: ActionParameter): Boolean {
@@ -176,6 +176,7 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
 
         override fun onSuccess(t: D) {
             try {
+                isWorking = false
                 mGlobalCallback?.onSuccess(id, action, t)
             } catch (e: Exception) {
                 onError(e)
