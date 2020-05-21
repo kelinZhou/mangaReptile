@@ -51,7 +51,7 @@
 
         <activity
             android:name=".ui.detail.ComicDetailActivity"
-            android:theme="@style/AppTheme.Common" />
+            android:theme="@style/AppTheme.Common.Activity"/>
 
 
     </application>

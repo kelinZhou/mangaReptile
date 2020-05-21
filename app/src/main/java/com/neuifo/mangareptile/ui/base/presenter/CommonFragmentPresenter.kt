@@ -72,8 +72,9 @@ abstract class CommonFragmentPresenter<V : CommonViewDelegate<VC, VD>, VC : Comm
     private fun unbindProxies() {
         if (proxies.isNotEmpty()) {
             for (proxy in proxies) {
-                proxy.unbind()
+                 proxy.unbind()
             }
+            proxies.clear()
         }
     }
 

@@ -9,6 +9,12 @@
         <item name="actionBarStyle">@style/common_action_bar_style</item>
     </style>
 
+    <style name="AppTheme.Common.Activity">
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
 
     <style name="AppTheme.Common">
         <item name="windowActionModeOverlay">true</item>
@@ -16,7 +22,7 @@
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
         <!--<item warehouseName="mp_colorAccent">@color/mp_colorAccent</item>-->
-        <item name="actionMenuTextColor">@color/theme_text_color</item>  <!--menu字体颜色-->
+        <item name="actionMenuTextColor">@color/white</item>  <!--menu字体颜色-->
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_light</item>
         <item name="android:selectableItemBackground">@drawable/abc_item_background_holo_light</item>
         <item name="android:windowBackground">@color/common_window_background</item>
@@ -158,6 +164,28 @@
     <style name="DialogBottomAnim">
         <item name="android:windowEnterAnimation">@anim/anim_translate_y100_y0_300</item>
         <item name="android:windowExitAnimation">@anim/anim_translate_y0_y100_300</item>
+    </style>
+
+
+    <style name="OverflowMenuStyle" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
+
+        <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownWidth">wrap_content</item>
+        <!-- 弹出层背景颜色 -->
+        <item name="android:popupBackground">@color/white</item>
+        <!-- 设置弹出菜单文字颜色 -->
+        <item name="android:textColor">@color/text_common_black</item>
+        <!-- 弹出层垂直方向上的偏移，即在竖直方向上距离Toolbar的距离，值为负则会盖住Toolbar -->
+        <item name="android:dropDownVerticalOffset">2dp</item>
+        <!-- 弹出层水平方向上的偏移，即距离屏幕左边的距离，负值会导致右边出现空隙 -->
+        <item name="android:dropDownHorizontalOffset">-4dp</item>
+    </style>
+
+    <style name="PopupMenuListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:divider">@color/color_list_parting_line_bg</item>
+        <item name="android:dividerHeight">1px</item>
     </style>
 
 </resources>

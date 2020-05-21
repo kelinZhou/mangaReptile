@@ -75,13 +75,14 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
             return null
         }
 
+        //这里泄漏了。。
         @SuppressWarnings("unchecked")
-        var useCase = mUseCaseMap.get(getCacheKey(id, action)) as? UseCase<D>
-        if (useCase == null) {
-            useCase = createUseCase(id, action)
-            mUseCaseMap.put(getCacheKey(id, action), useCase)
-        }
-
+        //var useCase = mUseCaseMap.get(getCacheKey(id, action)) as? UseCase<D>
+        //if (useCase == null) {
+            //useCase = createUseCase(id, action)
+            //mUseCaseMap.put(getCacheKey(id, action), useCase)
+        //}
+        var useCase = createUseCase(id, action)
         useCase.execute(observer)
 
         //mSubscriptions.clearAllUnSubscribed()

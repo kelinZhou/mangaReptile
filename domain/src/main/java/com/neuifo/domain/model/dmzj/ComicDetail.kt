@@ -3,9 +3,7 @@ package com.neuifo.domain.model.dmzj
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.neuifo.domain.model.base.HttpResult
 import com.neuifo.domain.model.base.WarpData
-import com.neuifo.domain.model.common.BaseKeyValuePair
 
 class ComicDetail(
     var id: Long,
@@ -72,6 +70,26 @@ class ComicDetail(
         val CREATOR: Parcelable.Creator<ComicDetail> = object : Parcelable.Creator<ComicDetail> {
             override fun createFromParcel(source: Parcel): ComicDetail = ComicDetail(source)
             override fun newArray(size: Int): Array<ComicDetail?> = arrayOfNulls(size)
+        }
+
+
+        fun createShareData(id: Long, cover: String): ComicDetail {
+            return ComicDetail(
+                id,
+                "",
+                mutableListOf(),
+                mutableListOf(),
+                cover,
+                mutableListOf(),
+                0L,
+                mutableListOf(),
+                "",
+                0L,
+                0L,
+                "",
+                "",
+                0L
+            )
         }
     }
 }

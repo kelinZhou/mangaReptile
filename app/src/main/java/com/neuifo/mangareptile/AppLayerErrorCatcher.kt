@@ -1,5 +1,7 @@
 package com.neuifo.mangareptile
 
+import com.neuifo.data.domain.utils.LogHelper
+
 /**
  * **描述:** Data层。
  *
@@ -18,6 +20,7 @@ object AppLayerErrorCatcher {
     }
 
     fun throwException(e: Throwable) {
+        LogHelper.system.e(e.localizedMessage)
         errorCatcher?.invoke(e)
     }
 }

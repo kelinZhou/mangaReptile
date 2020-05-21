@@ -48,7 +48,10 @@ abstract class SwipeBackFragmentActivity : BaseFragmentActivity() {
     private fun initSwipeBackLayout() {
         window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window.decorView.setBackgroundDrawable(null)
-        val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        val params = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         swipeBackLayout.layoutParams = params
         swipeBackLayout.setEnableGesture(enableSwipe)
     }

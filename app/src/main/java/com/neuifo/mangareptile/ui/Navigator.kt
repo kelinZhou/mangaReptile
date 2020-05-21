@@ -11,9 +11,10 @@ object Navigator {
     fun jumpToComicDetail(
         context: Activity,
         comicId: Long,
+        cover: String,
         bundle: Bundle,
         onFinishedEditor: (resultCode: Int, data: Intent) -> Unit
     ) {
-        ComicDetailActivity.startToDetail(context, comicId, bundle, onFinishedEditor)
+        ComicDetailActivity.startToDetail(context, comicId, cover, bundle, onFinishedEditor)
     }
 }

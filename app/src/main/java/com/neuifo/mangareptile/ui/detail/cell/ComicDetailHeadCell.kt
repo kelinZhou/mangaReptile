@@ -1,6 +1,5 @@
 package com.neuifo.mangareptile.ui.detail.cell
 
-import android.os.Parcelable
 import android.view.View
 import androidx.core.view.ViewCompat
 import com.hw.ycshareelement.transition.IShareElements
