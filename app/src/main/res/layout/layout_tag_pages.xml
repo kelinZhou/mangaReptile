@@ -5,16 +5,16 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/layout_tag_industry_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="80dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="5dp"
-        android:background="@drawable/shape_button_tag"
+        android:background="@drawable/bg_button_selector"
         android:gravity="center"
+        android:minWidth="80dp"
         android:paddingStart="15dp"
         android:paddingTop="10dp"
         android:paddingEnd="15dp"
@@ -29,6 +29,7 @@
         tools:text="10" />
 
     <ImageView
+        android:id="@+id/layout_tag_industry_mark"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/icon_new_tag"

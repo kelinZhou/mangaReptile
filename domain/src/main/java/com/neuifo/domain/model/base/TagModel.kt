@@ -9,7 +9,9 @@ import java.io.Serializable
  * <p><strong>版本: </strong> v 1.0.0
  */
 interface TagModel : Serializable {
+
     var isSelected: Boolean
     var tagString: String
-    val showMarker: Boolean
+    var showMarker: Boolean
+
 }

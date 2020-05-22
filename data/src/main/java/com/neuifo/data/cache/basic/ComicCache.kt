@@ -7,7 +7,9 @@ import io.reactivex.Observable
 interface ComicCache {
 
 
-    fun queryComicByIDs(ids:List<Long>): Observable<MutableList<ComicUpdate>>
+    fun queryComicByIDs(ids: List<Long>): Observable<MutableList<ComicUpdate>>
 
-    fun saveComicDetail(detail:ComicDetail)
+    fun saveComicDetail(detail: ComicDetail)
+
+    fun queryLastReadChapterId(comicId: Long): Long
 }

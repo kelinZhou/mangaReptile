@@ -7,11 +7,13 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import com.hw.ycshareelement.YcShareElement
+import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.domain.model.dmzj.ComicDetail
 import com.neuifo.domain.model.dmzj.ComicDetailWarpper
 import com.neuifo.mangareptile.data.core.API
 import com.neuifo.mangareptile.ui.base.listcell.SimpleCell
 import com.neuifo.mangareptile.ui.base.presenter.ItemListFragmentPresenter
+import com.neuifo.mangareptile.ui.detail.cell.ComicChapterCell
 import com.neuifo.mangareptile.utils.statusbar.StatusBarHelper
 import io.reactivex.Observable
 
@@ -48,14 +50,14 @@ class ComicDetailFragment :
 
     override fun onRealResume() {
         super.onRealResume()
-        requireActivity().getWindow().setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        requireActivity().window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         hideToolbar()
         StatusBarHelper.setStatusBarDarkMode(requireActivity())
     }
 
-    override fun onInterceptBackPressed(): Boolean {
+    override fun onDestroyView() {
         YcShareElement.finishAfterTransition(requireActivity(), viewDelegate)
-        return super.onInterceptBackPressed()
+        super.onDestroyView()
     }
 
     override fun transformUIData(
@@ -64,8 +66,12 @@ class ComicDetailFragment :
         data: ComicDetailWarpper
     ) {
         if (page == 1) {
-            //comicDetailHeadCell = ComicDetailHeadCell(data.comicDetail)
+            viewDelegate?.updateComicInfo(data.comicDetail)
+            data.comicDetail.chapters.map {
+                itemList.add(ComicChapterCell(it))
+            }
         }
+
         //YcShareElement.setEnterTransitions(requireActivity(), comicDetailHeadCell)
         //itemList.add(comicDetailHeadCell)
     }
@@ -102,6 +108,16 @@ class ComicDetailFragment :
     private inner class ComicDetailFragmentCallback : ItemListDelegateCallbackImpl(),
         ComicDetailDelegate.ComicDetailDelegateCallback {
         override fun getComicCover(): ComicDetail = comicDetail
+        override fun jumpToAuth(id: String) {
+            LogHelper.system.e("作者id${id}")
+        }
+
+        override fun exit() {
+            requireActivity().finish()
+        }
+
+        override fun downLoad() {
+        }
     }
 
 }

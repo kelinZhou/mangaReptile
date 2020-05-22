@@ -9,6 +9,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.view.View
 import android.widget.TextView
 
 object  ViewUtils {
@@ -143,5 +144,18 @@ object  ViewUtils {
             ViewUtils.CompoundOri.BOTTOM -> view.setCompoundDrawables(null, null, null, drawable)
         }
         view.compoundDrawablePadding = MeasureUtil.dp2px(view.context, drawablePadding.toFloat())
+    }
+
+
+    fun measureView(view: View) {
+        val w = View.MeasureSpec.makeMeasureSpec(
+            0,
+            View.MeasureSpec.UNSPECIFIED
+        )
+        val h = View.MeasureSpec.makeMeasureSpec(
+            0,
+            View.MeasureSpec.UNSPECIFIED
+        )
+        view.measure(w, h)
     }
 }

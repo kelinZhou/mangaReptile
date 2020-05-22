@@ -17,55 +17,71 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/layout_comic_detail_head_title"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:maxLines="3"
         android:textColor="@color/white"
-        app:layout_constraintLeft_toRightOf="@id/layout_comic_detail_head_cover"
-        app:layout_constraintRight_toRightOf="parent"
+        android:maxHeight="80dp"
+        android:textSize="22sp"
+        android:ellipsize="marquee"
+        app:layout_constrainedWidth="true"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/layout_comic_detail_head_cover"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题" />
+        tools:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试" />
 
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/layout_comic_detail_head_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@id/layout_comic_detail_head_title"
+        app:layout_constrainedWidth="true"
+        app:layout_constrainedHeight="true"
+        android:clickable="true"
         app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/layout_comic_detail_head_title"
         app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_title"
-        tools:text="作者:全磨人" />
+        tools:text="作者:全磨人 全磨人" />
 
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/layout_comic_detail_head_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@id/layout_comic_detail_head_title"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/layout_comic_detail_head_title"
         app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_author"
-        tools:text="已完结" />
+        tools:text="2020-05-19连载中..." />
 
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/layout_comic_detail_comic_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:textColor="@color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_cover"
-        tools:text="测试内容alskdjfklasdjfklasjdfklasdfjaslksdjfklasjdfklasjdfklajsdklfasdf" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0"
+        android:ellipsize="end"
+        tools:text="123123123423423421342341234213412341234121231231234234234213423412342134123412341212312312342342342134234123421341234123412123123123423423421342341234213412341234121231231234234234213423412342134123412341212312312342342342134234123421341234123412"
+        app:layout_constraintStart_toStartOf="@id/layout_comic_detail_head_status"
+        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_status"
+        app:layout_constraintBottom_toBottomOf="@id/layout_comic_detail_head_cover"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/layout_comic_detail_head_subscribe"
@@ -77,8 +93,8 @@
         android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/layout_comic_detail_head_read"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_comic_desc"
-        tools:text="取消订阅" />
+        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_cover"
+        android:text="开始订阅" />
 
 
     <Button
@@ -92,47 +108,6 @@
         android:textColor="@color/white"
         app:layout_constraintLeft_toRightOf="@id/layout_comic_detail_head_subscribe"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_comic_desc" />
-
-
-    <TextView
-        android:id="@+id/layout_comic_detail_tabs_hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="连载"
-        android:textColor="@color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_read" />
-
-
-    <com.neuifo.mangareptile.widget.flowlayout.FlowLayout
-        android:id="@+id/layout_comic_detail_tabs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_tabs_hint"
-        app:lineSpacing="10dp"
-        app:tagLayout="@layout/layout_tag_pages"
-        app:tagTextViewId="@id/layout_tag_industry_text"
-        tools:tags="JAVA, 产品, JAVA, 2, JAVA, 产品, JAVA, Android" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="评论"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_tabs" />
-
+        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_cover" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

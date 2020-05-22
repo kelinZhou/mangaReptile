@@ -76,8 +76,18 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
     }
 
 
-    override fun getComicDetail(id: Long, page: Int, size: Int): Observable<ComicDetailWarpper> {
-        return dmzjApi.getComicDetail(id).map {
+    override fun getComicDetail(
+        comicId: Long,
+        page: Int,
+        size: Int
+    ): Observable<ComicDetailWarpper> {
+        return dmzjApi.getComicDetail(comicId).map {
+            val lastReadChapterId = comicCache.queryLastReadChapterId(it.id)
+            it.chapters.map { chapter ->
+                chapter.data.map { item ->
+                    item.showMarker = item.chapterId > lastReadChapterId
+                }
+            }
             ComicDetailWarpper(it, mutableListOf())
         }
     }

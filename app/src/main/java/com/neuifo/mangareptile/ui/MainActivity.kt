@@ -23,6 +23,7 @@ class MainActivity : BaseActivity() {
         navigationAdapter.addPager("测试2", TestFragment::class.java)
         navigationAdapter.addPager("测试3", TestFragment::class.java)
         main_root_pager.adapter = navigationAdapter
+        main_root_pager.offscreenPageLimit = 3
         bottomBar.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelect(pos: Int) {
                 main_root_pager.currentItem = pos

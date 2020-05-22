@@ -12,5 +12,5 @@ interface DmzjRepo : Repo {
 
     fun getLastestList(page: Int): Observable<MutableList<ComicUpdate>>
 
-    fun getComicDetail(id: Long, page: Int, size: Int): Observable<ComicDetailWarpper>
+    fun getComicDetail(comicId: Long, page: Int, size: Int): Observable<ComicDetailWarpper>
 }

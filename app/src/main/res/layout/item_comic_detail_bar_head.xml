@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/black_000">
+
+    <ImageView
+        android:id="@+id/layout_item_comic_detail_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="15dp"
+        android:src="@mipmap/ic_toolbar_navigation_back" />
+
+
+    <TextView
+        android:id="@+id/layout_item_comic_detail_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="140dp"
+        android:layout_marginBottom="5dp"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="gone"
+        tools:text="121231231231231231231231231231231231231323"
+        tools:visibility="visible" />
+
+
+
+        <TextView
+            android:id="@+id/layout_item_comic_detail_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="下载"
+            android:textColor="@color/white"
+            android:padding="15dp"
+            />
+
+
+
+</RelativeLayout>

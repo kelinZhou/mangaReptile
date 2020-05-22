@@ -25,3 +25,7 @@ WHERE id IN ?;
 save_comic_info:
 REPLACE INTO comic_detail_info(id,title,authors,types,conver,status,latest_update_chapter_name,latest_update_chapter_id,latest_update_time,description)
 VALUES(?,?,?,?,?,?,?,?,?,?);
+
+query_last_read_chapter_id:
+SELECT last_read_chapter_id FROM comic_detail_info
+WHERE id = ?;

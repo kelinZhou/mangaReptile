@@ -60,4 +60,9 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
             )
         }
     }
+
+    override fun queryLastReadChapterId(comicId: Long): Long {
+        return comicDB.dbComicDetailInfoQueries.query_last_read_chapter_id(comicId).executeAsOneOrNull()?.last_read_chapter_id
+            ?: 0L
+    }
 }

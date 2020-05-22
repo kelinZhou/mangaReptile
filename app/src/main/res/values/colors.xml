@@ -47,6 +47,9 @@
     <color name="text_common_black">@color/black_000</color>
 
 
+    <color name="red_f4333c">#F4333c</color>
+
+
 
 
 </resources>

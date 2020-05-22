@@ -109,7 +109,7 @@ public class FlowLayout extends ViewGroup {
                 }
                 Class<?> tagModelClass;
                 try {
-                    tagModelClass = Class.forName("com.lieluobo.candidate.data.domain.model.base.TagModel");
+                    tagModelClass = Class.forName("com.neuifo.domain.model.base.TagModel");
                 } catch (ClassNotFoundException e) {
                     tagModelClass = null;
                 }
@@ -120,10 +120,15 @@ public class FlowLayout extends ViewGroup {
                 tvTag.setText(tag instanceof String ? (String) tag : tag instanceof TagModel ? ((TagModel) tag).getTagString() : tag.toString());
                 if (selectedList != null && !selectedList.isEmpty() && selectedList.contains(tag)) {
                     rootView.setSelected(true);
+                    tvTag.setSelected(true);
+                    CheckBox checkBox = null;
                     if (rootView instanceof CheckBox) {
-                        CheckBox checkBox = (CheckBox) rootView;
-                        checkBox.setChecked(true);
+                        checkBox = (CheckBox) rootView;
+                    } else if (tvTag instanceof CheckBox) {
+                        checkBox = (CheckBox) tvTag;
                     }
+                    if (checkBox != null)
+                        checkBox.setChecked(true);
                 }
                 rootView.setTag(KEY_TAG_MODEL, tag);
                 if (tagClickListener != null) {
