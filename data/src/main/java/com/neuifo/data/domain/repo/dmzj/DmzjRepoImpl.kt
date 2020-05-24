@@ -1,13 +1,16 @@
 package com.neuifo.data.domain.repo.dmzj
 
 import android.content.Context
+import com.neuifo.data.api.dmzj.ImageApi
 import com.neuifo.domain.model.base.HttpResult
 import com.neuifo.data.api.dmzj.DmzjApi
 import com.neuifo.data.api.dmzj.Host
 import com.neuifo.data.cache.ComicDetailCacheImpl
 import com.neuifo.data.converter.CommonConverter
 import com.neuifo.data.domain.utils.LogHelper
+import com.neuifo.data.interceptor.DownloadProgressInterceptor
 import com.neuifo.data.interceptor.HeadTokenInterceptor
+import com.neuifo.domain.model.DownloadProgressListener
 import com.neuifo.data.util.RetrofitServiceFactory
 import com.neuifo.domain.model.dmzj.*
 import com.neuifo.domain.repo.dmzj.DmzjRepo
@@ -16,6 +19,7 @@ import com.neuifo.domain.utils.DateHelper
 import com.neuifo.domain.utils.DateType
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
+import java.io.InputStream
 
 class DmzjRepoImpl(context: Context) : DmzjRepo {
 
@@ -89,6 +93,26 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
                 }
             }
             ComicDetailWarpper(it, mutableListOf())
+        }
+    }
+
+    override fun getChapter(comicId: Long, chapterId: Long): Observable<Chapter> {
+        return dmzjApi.getChapterDetail(comicId, chapterId)
+    }
+
+
+    override
+    fun getImage(
+        url: String, progressListener: DownloadProgressListener?
+    ): Observable<InputStream> {
+        var imageApi = RetrofitServiceFactory.createRetorfitService(
+            ImageApi::class.java,
+            Host.IMAGEAPI,
+            ints = *arrayOf(DownloadProgressInterceptor(progressListener))
+        )
+        return imageApi.getImageData(url).map {
+            val body = it.body()
+            body?.byteStream()
         }
     }
 

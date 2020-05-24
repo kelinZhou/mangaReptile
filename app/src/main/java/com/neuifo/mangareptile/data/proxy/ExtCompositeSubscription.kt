@@ -26,7 +26,7 @@ internal class ExtCompositeSubscription {
     constructor() {}
 
     constructor(vararg subscriptions: Disposable) {
-        this.subscriptions = HashSet(Arrays.asList(*subscriptions))
+        this.subscriptions = HashSet(listOf(*subscriptions))
     }
 
     fun isDisposed(): Boolean {

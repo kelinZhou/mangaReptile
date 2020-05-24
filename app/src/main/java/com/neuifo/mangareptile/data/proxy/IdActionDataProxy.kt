@@ -79,8 +79,8 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
         @SuppressWarnings("unchecked")
         //var useCase = mUseCaseMap.get(getCacheKey(id, action)) as? UseCase<D>
         //if (useCase == null) {
-            //useCase = createUseCase(id, action)
-            //mUseCaseMap.put(getCacheKey(id, action), useCase)
+        //useCase = createUseCase(id, action)
+        //mUseCaseMap.put(getCacheKey(id, action), useCase)
         //}
         var useCase = createUseCase(id, action)
         useCase.execute(observer)
@@ -112,7 +112,7 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
         return result
     }
 
-    private fun createCallback(id: ID, action: ActionParameter): DisposableObserver<D> {
+    open fun createCallback(id: ID, action: ActionParameter): DisposableObserver<D> {
         return IdActionCaseSubscriber(id, action)
     }
 
@@ -128,7 +128,10 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
         }
     }
 
-    fun bind(owner: ProxyOwner, callBack: IdActionDataCallback<ID, ActionParameter, D>): IdActionDataProxy<ID, D> {
+    fun bind(
+        owner: ProxyOwner,
+        callBack: IdActionDataCallback<ID, ActionParameter, D>
+    ): IdActionDataProxy<ID, D> {
         if (mGlobalCallback != null) {
             if (mGlobalCallback != callBack) {
                 unbind()
@@ -154,8 +157,10 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
     /**
      * 用户行为观察者
      */
-    internal inner class IdActionCaseSubscriber(private val id: ID, private val action: ActionParameter) : NetErrorHandler<D>() {
-
+    internal inner class IdActionCaseSubscriber(
+        private val id: ID,
+        private val action: ActionParameter
+    ) : NetErrorHandler<D>() {
         /**
          * 处理http权限错误
          * @param ex 异常

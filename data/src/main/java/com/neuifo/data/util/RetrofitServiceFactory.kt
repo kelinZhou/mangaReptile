@@ -15,11 +15,12 @@ object RetrofitServiceFactory {
     fun <T> createRetorfitService(
         clazz: Class<T>?,
         url: String?,
-        converter: Class<out Converter<*, *>>,
+        converter: Class<out Converter<*, *>>? = null,
         vararg ints: Interceptor?
     ): T {
         val builder = OkHttpClient.Builder()
-        builder.connectTimeout(10, TimeUnit.SECONDS)
+        builder.connectTimeout(30, TimeUnit.SECONDS)
+        builder.readTimeout(30, TimeUnit.SECONDS)
         builder.retryOnConnectionFailure(true)
 
         //builder.sslSocketFactory()
@@ -44,17 +45,34 @@ object RetrofitServiceFactory {
         val retrofit = Retrofit.Builder()
             .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(
-                create(
-                    createDefaultGson(),
-                    converter
-                )
-            ) //暂时是为了专门处理date，以后可以单独添加各种指定的model
+            .apply {
+                //暂时是为了专门处理date，以后可以单独添加各种指定的model
+                if (converter != null) {
+                    addConverterFactory(ScalarsConverterFactory.create())
+                    addConverterFactory(
+                        create(
+                            createDefaultGson(),
+                            converter
+                        )
+                    )
+                }
+            }
             .baseUrl(url)
             .build()
         return retrofit.create(clazz)
     }
+
+
+    public fun <T> createDefault(clazz: Class<T>?, baseUrl: String): T {
+        return Retrofit.Builder().client(
+            OkHttpClient.Builder()
+                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .build()
+        )
+            .baseUrl(baseUrl).build().create(clazz)
+    }
+
 
     private fun createDefaultGson(): Gson {
         return GsonBuilder() //.registerTypeAdapter(Date.class, new DateTypeDeserializer())

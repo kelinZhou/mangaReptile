@@ -11,6 +11,7 @@ import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.domain.model.dmzj.ComicDetail
 import com.neuifo.domain.model.dmzj.ComicDetailWarpper
 import com.neuifo.mangareptile.data.core.API
+import com.neuifo.mangareptile.ui.Navigator
 import com.neuifo.mangareptile.ui.base.listcell.SimpleCell
 import com.neuifo.mangareptile.ui.base.presenter.ItemListFragmentPresenter
 import com.neuifo.mangareptile.ui.detail.cell.ComicChapterCell
@@ -50,7 +51,7 @@ class ComicDetailFragment :
 
     override fun onRealResume() {
         super.onRealResume()
-        requireActivity().window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        //requireActivity().window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         hideToolbar()
         StatusBarHelper.setStatusBarDarkMode(requireActivity())
     }
@@ -67,8 +68,15 @@ class ComicDetailFragment :
     ) {
         if (page == 1) {
             viewDelegate?.updateComicInfo(data.comicDetail)
-            data.comicDetail.chapters.map {
-                itemList.add(ComicChapterCell(it))
+            data.comicDetail.chapters.map { it ->
+                itemList.add(ComicChapterCell(it) { chapter ->
+                    Navigator.jumpToGallery(
+                        requireActivity(),
+                        comicDetail.id,
+                        chapter.chapterId,
+                        data.comicDetail.chapters.first()
+                    )
+                })
             }
         }
 

@@ -3,15 +3,18 @@ package com.neuifo.domain.model.base
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.neuifo.domain.model.dmzj.Chapter
 
-class WarpData<T>(
+class WarpData(
     @SerializedName("title")
     var name: String,
-    var data: MutableList<T>
+    var data: MutableList<Chapter>
 ) : Parcelable {
     constructor(source: Parcel) : this(
         source.readString(),
-        ArrayList<T>().apply { source.readList(this, ArrayList::class.java.classLoader) }
+        arrayListOf<Chapter>().apply {
+            source.readList(this, Chapter::class.java.classLoader)
+        }
     )
 
     override fun describeContents() = 0
@@ -23,9 +26,9 @@ class WarpData<T>(
 
     companion object {
         @JvmField
-        val CREATOR: Parcelable.Creator<WarpData<Any>> = object : Parcelable.Creator<WarpData<Any>> {
-            override fun createFromParcel(source: Parcel): WarpData<Any> = WarpData(source)
-            override fun newArray(size: Int): Array<WarpData<Any>?> = arrayOfNulls(size)
+        val CREATOR: Parcelable.Creator<WarpData> = object : Parcelable.Creator<WarpData> {
+            override fun createFromParcel(source: Parcel): WarpData = WarpData(source)
+            override fun newArray(size: Int): Array<WarpData?> = arrayOfNulls(size)
         }
     }
 }

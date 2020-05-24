@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.item_comic_chapter.view.*
 
 
 class ComicChapterCell(
-    var chapter: WarpData<Chapter>,
+    var chapter: WarpData,
     var chapterClick: ((tag: Chapter) -> Unit)? = null
 ) :
     SimpleCell() {

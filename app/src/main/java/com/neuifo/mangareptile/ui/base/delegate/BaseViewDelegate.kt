@@ -155,6 +155,20 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
         )
     }
 
+    protected fun getDimens(@DimenRes dimenRes: Int): Float {
+        return (viewPresenter?.getContext() ?: AppModule.getContext()).resources.getDimension(
+            dimenRes
+        )
+    }
+
+
+    protected fun getDimensionPixelOffset(@DimenRes dimenRes: Int): Int {
+        return (viewPresenter?.getContext()
+            ?: AppModule.getContext()).resources.getDimensionPixelOffset(
+            dimenRes
+        )
+    }
+
 
     protected fun getColorStateList(@ColorRes colorStateListId: Int): ColorStateList {
         return AppCompatResources.getColorStateList(
@@ -208,7 +222,8 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
             View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(v: View?) {
                 val loadingIcon =
-                    statePageLayout.loadingView?.findViewById<ImageView>(R.id.ivStatePageIcon)?.drawable
+                    statePageLayout.loadingView?.findViewById<ImageView>(R.id.ivStatePageIcon)
+                        ?.drawable
                 if (loadingIcon != null && loadingIcon is AnimationDrawable) {
                     loadingIcon.start()
                 }
@@ -216,7 +231,8 @@ abstract class BaseViewDelegate<VC : BaseViewDelegate.BaseViewDelegateCallback> 
 
             override fun onViewDetachedFromWindow(v: View?) {
                 val loadingIcon =
-                    statePageLayout.loadingView?.findViewById<ImageView>(R.id.ivStatePageIcon)?.drawable
+                    statePageLayout.loadingView?.findViewById<ImageView>(R.id.ivStatePageIcon)
+                        ?.drawable
                 if (loadingIcon != null && loadingIcon is AnimationDrawable) {
                     loadingIcon.stop()
                 }

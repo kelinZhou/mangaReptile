@@ -1,13 +1,13 @@
 package com.neuifo.data.api.dmzj
 
 import com.neuifo.domain.model.base.HttpResult
+import com.neuifo.domain.model.dmzj.Chapter
 import com.neuifo.domain.model.dmzj.ComicDetail
 import com.neuifo.domain.model.dmzj.ComicUpdate
 import com.neuifo.domain.model.dmzj.RecommendItem
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import okhttp3.ResponseBody
+import retrofit2.http.*
 
 interface DmzjApi {
 
@@ -36,5 +36,13 @@ interface DmzjApi {
     @GET("/comic/comic_{comicId}.json")
     fun getComicDetail(
         @Path("comicId") comicId: Long
-    ):Observable<ComicDetail>
+    ): Observable<ComicDetail>
+
+
+    @GET("/chapter/{comicId}/{chapterId}.json")
+    fun getChapterDetail(
+        @Path("comicId") comicId: Long,
+        @Path("chapterId") chapterId: Long
+    ): Observable<Chapter>
+
 }

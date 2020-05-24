@@ -12,4 +12,9 @@
     </declare-styleable>
 
 
+    <declare-styleable name="BatteryView">
+        <attr name="color"/>
+        <attr name="warningColor" format="color"/>
+    </declare-styleable>
+
 </resources>

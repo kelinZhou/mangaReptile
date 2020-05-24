@@ -15,7 +15,7 @@ class ComicDetail(
     //subscribe_num	Integer	129
     @SerializedName("subscribe_num")
     var subscribeNum: Long,//订阅人数
-    var chapters: MutableList<WarpData<Chapter>>,
+    var chapters: MutableList<WarpData>,
     @SerializedName("last_update_chapter_name")
     var latest_update_chapter_name: String,
     @SerializedName("last_update_chapter_id")
