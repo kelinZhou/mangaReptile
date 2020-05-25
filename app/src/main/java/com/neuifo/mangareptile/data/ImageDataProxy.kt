@@ -23,8 +23,9 @@ class ImageDataProxy : IdActionDataProxy<ChapterItem, Image>() {
     ): UseCase<Image> {
         return ApiIdRequestUseCase(chapterItem) { id ->
             API.DMZJ_Dmzj.getImage(id.imageUrl, id.downloadProgressListener).map { data ->
-                LogHelper.system.e("图片解码中...")
-                Image.decode(data, false)!!
+                var image = Image.decode(data, false)!!
+                data.close()
+                image
             }
         }
     }

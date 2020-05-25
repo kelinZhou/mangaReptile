@@ -26,16 +26,18 @@ last_update_chapter_id	Integer	98598
  */
 class ComicUpdate(
     var id: Long,
+    @SerializedName(value = "title_tag", alternate = ["title", "name"])
     var title: String,
     var authors: String,
     var types: String,
+    @SerializedName(value = "cover_tag", alternate = ["cover", "sub_img"])
     var cover: String,
     var status: String,
-    @SerializedName("last_update_chapter_name")
+    @SerializedName(value = "chapter_name", alternate = ["last_update_chapter_name", "sub_update"])
     var latest_update_chapter_name: String,
     @SerializedName("last_update_chapter_id")
     var latest_update_chapter_id: Long,
-    @SerializedName("last_updatetime")
+    @SerializedName(value = "update_time", alternate = ["last_updatetime", "sub_uptime"])
     var latest_update_time: Long,
     var last_read_name: String,
     var last_read_chapter_id: Long

@@ -5,7 +5,7 @@
     <dimen name="common_padding_start_and_end">20dp</dimen>
     <dimen name="page_info_interval">24dp</dimen>
 
-
+    <dimen name="key_line_margin">16dp</dimen>
 
     <dimen name="common_tab_layout_height">40dp</dimen>
     <dimen name="gallery_widget_margin_v">12dp</dimen>
@@ -15,4 +15,6 @@
 
     <dimen name="error_text_size">24sp</dimen>
     <dimen name="page_text_size">56sp</dimen>
+
+    <dimen name="gallery_guide_divider_width">3dp</dimen>
 </resources>

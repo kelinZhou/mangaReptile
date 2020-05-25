@@ -3,11 +3,14 @@ package com.neuifo.mangareptile.utils
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.text.TextUtils
 import android.view.*
 import android.widget.*
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SwitchCompat
+import com.hippo.glgallery.GalleryView
 import com.kelin.okpermission.Renewable
 import com.neuifo.data.util.DeviceUtils
 import com.neuifo.mangareptile.R
@@ -184,6 +187,92 @@ object StyleHelper {
         }
     }
 
+
+    fun showComicHelpDialog(activity: Activity, dismissListener: () -> Unit) {
+        /*val dialog = DialogHelper.Builder(activity)
+            .setContentView(R.layout.dialog_gallery_menu)
+            .setCancelable(true)
+            .setStyle(R.style.CommonWidgetDialog_BottomAnim)
+            .setSize(-1, ViewGroup.LayoutParams.WRAP_CONTENT)
+            .setGravity(Gravity.BOTTOM)
+            .createDialog()*/
+
+        val dialog = LayoutInflater.from(activity).inflate(R.layout.dialog_gallery_menu, null);
+
+        val mScreenRotation: Spinner = dialog.findViewById(R.id.screen_rotation)
+        val mReadingDirection: Spinner = dialog.findViewById(R.id.reading_direction)
+        val mScaleMode: Spinner = dialog.findViewById(R.id.page_scaling)
+        val mStartPosition: Spinner = dialog.findViewById(R.id.start_position)
+        val mKeepScreenOn: SwitchCompat =
+            dialog.findViewById(R.id.keep_screen_on)
+        val mShowClock: SwitchCompat = dialog.findViewById(R.id.show_clock)
+        val mShowProgress: SwitchCompat =
+            dialog.findViewById(R.id.show_progress)
+        val mShowBattery: SwitchCompat =
+            dialog.findViewById(R.id.show_battery)
+        val mShowPageInterval: SwitchCompat =
+            dialog.findViewById(R.id.show_page_interval)
+        val mVolumePage: SwitchCompat =
+            dialog.findViewById(R.id.volume_page)
+        val mReadingFullscreen: SwitchCompat =
+            dialog.findViewById(R.id.reading_fullscreen)
+        val mCustomScreenLightness: SwitchCompat =
+            dialog.findViewById(R.id.custom_screen_lightness)
+        val mScreenLightness: SeekBar = dialog.findViewById(R.id.screen_lightness)
+
+        mScreenRotation.setSelection(Settings.getScreenRotation())
+        mReadingDirection.setSelection(Settings.getReadingDirection())
+        mScaleMode.setSelection(Settings.getPageScaling())
+        mStartPosition.setSelection(Settings.getStartPosition())
+        mKeepScreenOn.isChecked = Settings.getKeepScreenOn()
+        mShowClock.isChecked = Settings.getShowClock()
+        mShowProgress.isChecked = Settings.getShowProgress()
+        mShowBattery.isChecked = Settings.getShowBattery()
+        mShowPageInterval.isChecked = Settings.getShowPageInterval()
+        mVolumePage.isChecked = Settings.getVolumePage()
+        mCustomScreenLightness.isChecked = Settings.getCustomScreenLightness()
+        mScreenLightness.progress = Settings.getScreenLightness()
+        mScreenLightness.isEnabled = Settings.getCustomScreenLightness()
+        val builder =
+            AlertDialog.Builder(activity)
+        builder.setTitle("配置")
+            .setView(dialog)
+            .setPositiveButton(
+                android.R.string.ok
+            ) { _, _ ->
+
+                val screenRotation = mScreenRotation.selectedItemPosition
+                val layoutMode =
+                    GalleryView.sanitizeLayoutMode(mReadingDirection.selectedItemPosition)
+                val scaleMode = GalleryView.sanitizeScaleMode(mScaleMode.selectedItemPosition)
+                val startPosition =
+                    GalleryView.sanitizeStartPosition(mStartPosition.selectedItemPosition)
+                val keepScreenOn = mKeepScreenOn.isChecked
+                val showClock = mShowClock.isChecked
+                val showProgress = mShowProgress.isChecked
+                val showBattery = mShowBattery.isChecked
+                val showPageInterval = mShowPageInterval.isChecked
+                val volumePage = mVolumePage.isChecked
+                val customScreenLightness = mCustomScreenLightness.isChecked
+                val screenLightness = mScreenLightness.progress
+
+                Settings.putScreenRotation(screenRotation)
+                Settings.putReadingDirection(layoutMode)
+                Settings.putPageScaling(scaleMode)
+                Settings.putStartPosition(startPosition)
+                Settings.putKeepScreenOn(keepScreenOn)
+                Settings.putShowClock(showClock)
+                Settings.putShowProgress(showProgress)
+                Settings.putShowBattery(showBattery)
+                Settings.putShowPageInterval(showPageInterval)
+                Settings.putVolumePage(volumePage)
+                Settings.putCustomScreenLightness(customScreenLightness)
+                Settings.putScreenLightness(screenLightness)
+
+                dismissListener.invoke()
+            }.show()
+    }
+
     fun showCommonConfirmAgainDialog(
         activity: Activity,
         msg: String,
@@ -255,7 +344,6 @@ object StyleHelper {
         }
         dialog.show()
     }
-
 
 
     fun showMissCameraDialog(activity: Activity, renewable: Renewable) {

@@ -14,9 +14,12 @@ import com.neuifo.mangareptile.data.proxy.IdDataProxy
 import com.neuifo.mangareptile.data.proxy.ProxyFactory
 import com.neuifo.mangareptile.data.proxy.ProxyOwner
 import com.neuifo.mangareptile.data.proxy.UnBounder
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.text.DecimalFormat
 
 
-class ComicProvider(var comicId: Long, var startChapter: Long, var chapter: WarpData) :
+class ComicProvider(var comicId: Long, var currentChapter: Chapter, var chapter: WarpData) :
     GalleryProvider(),
     ProxyOwner {
 
@@ -28,8 +31,8 @@ class ComicProvider(var comicId: Long, var startChapter: Long, var chapter: Warp
                 currentChapter = data
                 onRequest(0)
             }
-            .onFailed { id, e ->
-                e.displayMessage
+            .onFailed { _, e ->
+                errorMsg = e.displayMessage
             }
     }
 
@@ -37,20 +40,11 @@ class ComicProvider(var comicId: Long, var startChapter: Long, var chapter: Warp
         ImageDataProxy()
     }
 
-    var currentChapter: Chapter? = null
     var errorMsg: String = ""
 
 
-
-    override fun start() {
-        super.start()
-        LogHelper.system.e("start")
-        chapterRequester.request(startChapter)
-    }
-
     override fun stop() {
         super.stop()
-        LogHelper.system.e("stop")
         imageRequester.unbind(true)
         chapterRequester.unbind(true)
     }
@@ -60,36 +54,33 @@ class ComicProvider(var comicId: Long, var startChapter: Long, var chapter: Warp
         index: Int,
         onDownloadProgressListener: DownloadProgressListener? = null
     ): ChapterItem? {
-        var url: String? = currentChapter?.pageUrl?.get(index) ?: return null
+        var url: String? = currentChapter.pageUrl[index] ?: return null
         return ChapterItem(index, url!!, onDownloadProgressListener)
     }
 
     override fun getError(): String = errorMsg
 
     override fun onCancelRequest(index: Int) {
-        LogHelper.system.e("onCancelRequest")
         imageRequester.onCancelRequest(createRequestByIndex(index))
     }
 
     override fun onForceRequest(index: Int) {
-        LogHelper.system.e("onForceRequest")
         onCancelRequest(index)
         onRequest(index)
     }
 
-    override fun size(): Int = currentChapter?.pageNums?.toInt() ?: STATE_ERROR
+    override fun size(): Int = currentChapter.pageNums.toInt()
 
     override fun onRequest(index: Int) {
         LogHelper.system.e("onRequest")
+        notifyPageWait(index)
         val request = createRequestByIndex(index, object : DownloadProgressListener(index) {
-            override fun update(
-                downloadIdentifier: String?,
-                bytesRead: Long,
-                contentLength: Long,
-                done: Boolean
-            ) {
-                LogHelper.system.e("progress:" + bytesRead / (contentLength / 100f))
-                notifyPagePercent(downloadIndex, bytesRead / (contentLength / 100f))
+
+            override fun update(bytesRead: Long, contentLength: Long, done: Boolean) {
+                var progress = DecimalFormat("######0.0").format(bytesRead / (contentLength / 100f))
+                GlobalScope.launch {
+                    notifyPagePercent(downloadIndex, progress.toFloat())
+                }
             }
         })
         if (request == null) {
@@ -98,7 +89,6 @@ class ComicProvider(var comicId: Long, var startChapter: Long, var chapter: Warp
         }
         imageRequester.bind(this, object : IdDataProxy.IdDataCallback<ChapterItem, Image>() {
             override fun onSuccess(id: ChapterItem, data: Image) {
-                LogHelper.system.e("图片解码成功...")
                 notifyPageSucceed(id.index, data)
             }
 

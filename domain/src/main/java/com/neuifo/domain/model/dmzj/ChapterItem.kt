@@ -2,7 +2,11 @@ package com.neuifo.domain.model.dmzj
 
 import com.neuifo.domain.model.DownloadProgressListener
 
-class ChapterItem(var index: Int, var imageUrl:String, var downloadProgressListener: DownloadProgressListener?){
+class ChapterItem(
+    var index: Int,
+    var imageUrl: String,
+    var downloadProgressListener: DownloadProgressListener?
+) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

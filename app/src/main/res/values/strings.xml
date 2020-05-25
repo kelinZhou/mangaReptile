@@ -15,4 +15,53 @@
     <string name="menu_personal">账户 </string>
 
 
+
+    <string name="settings_read_screen_rotation">屏幕方向</string>
+    <string name="settings_read_screen_rotation_default">系统默认</string>
+    <string name="settings_read_screen_rotation_portrait">竖屏</string>
+    <string name="settings_read_screen_rotation_landscape">横屏</string>
+    <string name="settings_read_screen_rotation_sensor">自动旋转</string>
+    <string name="settings_read_reading_direction">阅读方向</string>
+    <string name="settings_read_reading_direction_left_to_right">从左至右</string>
+    <string name="settings_read_reading_direction_right_to_Left">从右至左</string>
+    <string name="settings_read_reading_direction_top_to_bottom">从上至下</string>
+    <string name="settings_read_start_position">开页位置</string>
+    <string name="settings_read_keep_screen_on">屏幕常亮</string>
+    <string name="settings_read_show_clock">显示时钟</string>
+    <string name="settings_read_show_progress">显示进度</string>
+    <string name="settings_read_show_battery">显示电量</string>
+    <string name="settings_read_show_page_interval">显示页面间隔</string>
+    <string name="settings_read_volume_page">使用音量键翻页</string>
+    <string name="settings_read_reading_fullscreen">全屏</string>
+    <string name="settings_read_custom_screen_lightness">自定义屏幕亮度</string>
+    <string name="settings_read_screen_lightness">屏幕亮度</string>
+    <string name="settings_read_page_scaling">页面缩放</string>
+    <string name="settings_read_page_scaling_actual_size">原始尺寸</string>
+    <string name="settings_read_page_scaling_fit_to_width">匹配宽度</string>
+    <string name="settings_read_page_scaling_fit_to_height">匹配长度</string>
+    <string name="settings_read_page_scaling_fit_to_screen">匹配屏幕</string>
+    <string name="settings_read_page_scaling_fixed_scale">固定缩放</string>
+    <string name="settings_read_start_position_top_left">左上角</string>
+    <string name="settings_read_start_position_top_right">右上角</string>
+    <string name="settings_read_start_position_bottom_left">左下角</string>
+    <string name="settings_read_start_position_bottom_right">右下角</string>
+    <string name="settings_read_start_position_center">中心</string>
+
+
+    <!-- Guide -->
+    <string name="guide_quick_search_title">快速搜索</string>
+    <string name="guide_quick_search_text">从右侧滑动打开快速搜索面板</string>
+    <string name="guide_collections_title">收藏夹</string>
+    <string name="guide_collections_text">从右侧滑动来选择收藏夹</string>
+    <string name="guide_download_labels_title">下载标签</string>
+    <string name="guide_download_labels_text">从右侧滑动打开下载标签面板</string>
+    <string name="guide_download_thumb_title">画廊详情</string>
+    <string name="guide_download_thumb_text">点击缩略图查看画廊详情</string>
+    <string name="guide_gallery_left">翻页</string>
+    <string name="guide_gallery_right">翻页</string>
+    <string name="guide_gallery_menu">菜单</string>
+    <string name="guide_gallery_progress">进度条</string>
+    <string name="guide_gallery_long_click">长按打开页面菜单</string>
+
+
 </resources>

@@ -41,6 +41,10 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun getSubscribe(page: Int): Observable<MutableList<ComicUpdate>> {
+        return dmzjApi.getSubscribe(page = page)
+    }
+
     override fun getLastestList(page: Int): Observable<MutableList<ComicUpdate>> {
         val orignSource = if (page == 1) {
             dmzjApi.getRecommendList().onErrorReturn { HttpResult<RecommendItem>() }

@@ -24,7 +24,7 @@ interface DmzjApi {
         @Query("letter") letter: String = "all",
         @Query("page") page: Int,
         @Query("type") type: Int = 0
-    ): Observable<MutableList<List<ComicUpdate>>>
+    ): Observable<MutableList<ComicUpdate>>
 
 
     @GET("/recommend/batchUpdate")

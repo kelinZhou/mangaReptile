@@ -19,8 +19,8 @@ object RetrofitServiceFactory {
         vararg ints: Interceptor?
     ): T {
         val builder = OkHttpClient.Builder()
-        builder.connectTimeout(30, TimeUnit.SECONDS)
-        builder.readTimeout(30, TimeUnit.SECONDS)
+        builder.connectTimeout(15, TimeUnit.SECONDS)
+        builder.readTimeout(15, TimeUnit.SECONDS)
         builder.retryOnConnectionFailure(true)
 
         //builder.sslSocketFactory()
@@ -66,8 +66,8 @@ object RetrofitServiceFactory {
     public fun <T> createDefault(clazz: Class<T>?, baseUrl: String): T {
         return Retrofit.Builder().client(
             OkHttpClient.Builder()
-                .readTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
                 .build()
         )
             .baseUrl(baseUrl).build().create(clazz)

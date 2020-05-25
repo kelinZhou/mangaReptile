@@ -32,8 +32,8 @@ class HomeDelegate : BaseViewDelegate<HomeDelegate.HomeDelegateCallback>(), Layo
     fun init(fragmentManager: FragmentManager) {
         navigationAdapter = CommonFragmentStatePagerAdapter(fragmentManager)
         navigationAdapter?.setSaveState(false)
-        navigationAdapter?.addPager("实时更新", UpdateComicListFragment::class.java)
-        navigationAdapter?.addPager("我的订阅", TestFragment::class.java)
+        navigationAdapter?.addPager("实时更新", UpdateComicListFragment.getInstance(true))
+        navigationAdapter?.addPager("我的订阅", UpdateComicListFragment.getInstance(false))
         viewpager.adapter = navigationAdapter
         viewpager.setNoScroll(false)
 

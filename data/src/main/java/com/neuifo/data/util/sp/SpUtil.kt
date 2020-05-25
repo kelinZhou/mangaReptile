@@ -3,32 +3,11 @@ package com.neuifo.data.util.sp
 import android.content.Context
 import android.content.SharedPreferences.Editor
 
-
-/**
- * **描述:** SharedPreferences 相关的工具类。
- *
- *
- * **创建人:** kelin
- *
- *
- * **创建时间:** 2019/4/16  10:37 AM
- *
- *
- * **版本:** v 1.0.0
- */
 object SpUtil {
 
-    private const val CONFIG_NAME = "com_higss_candidate_SharedPreferencesConfigs"
-    private const val SECURE_CONFIG_NAME = "com_higss_candidate_SecureSharedPreferencesConfigs"
+    private const val CONFIG_NAME = "com_neuifo_candidate_SharedPreferencesConfigs"
+    private const val SECURE_CONFIG_NAME = "com_neuifo_candidate_SecureSharedPreferencesConfigs"
 
-    private val CONVERSATION_LAST_TIME = "CONVERSATION_LAST_TIME"
-
-    private val DATE_BASE_NAME = "IM_DATE_BASE_NAME"
-    private val DATE_BASE_IMID = "IM_DATE_BASE_IMID"
-
-    val FIRST_INSTALL = "FIRST_INSTALL"
-
-    val IM_ENCRYPT = "IM_ENCRYPT"
 
     /**
      * 保存一个boolean值到配置文件中
@@ -191,48 +170,7 @@ object SpUtil {
     }
 
     private fun getSecureSp(context: Context): SecurePreferences {
-        return SecurePreferences(context, "com.higgs.candidate", SECURE_CONFIG_NAME)
+        return SecurePreferences(context, "com.neuifo.mangaReptile", SECURE_CONFIG_NAME)
     }
 
-    fun saveAppEncptyString(context: Context, value: String) {
-        putString(context, IM_ENCRYPT, value)
-    }
-
-    fun getAppEncryptString(context: Context): String {
-        return getSecureString(context, IM_ENCRYPT, "")
-    }
-
-    fun saveDataBaseName(context: Context, name: String) {
-        putString(context, DATE_BASE_NAME, name)
-    }
-
-    fun getDataBaseName(context: Context): String {
-        return getSecureString(context, DATE_BASE_NAME, "")
-    }
-
-    fun saveDataBaseImid(context: Context, imid: Long) {
-        putLong(context, DATE_BASE_IMID, imid)
-    }
-
-    fun getDataBaseImid(context: Context): Long {
-        return getLong(context, DATE_BASE_IMID, 0)
-    }
-
-    fun getConversationLastTime(context: Context): Long {
-        return getLong(context, CONVERSATION_LAST_TIME, System.currentTimeMillis())
-    }
-
-
-    fun setConversationLastTime(context: Context, time: Long) {
-        putLong(context, CONVERSATION_LAST_TIME, time)
-    }
-
-    fun getFirstInstall(context: Context): Boolean {
-        //return getBoolean(context, FIRST_INSTALL, true)
-        return true
-    }
-
-    fun setFirstInstall(context: Context) {
-        putBoolean(context, FIRST_INSTALL, false)
-    }
 }

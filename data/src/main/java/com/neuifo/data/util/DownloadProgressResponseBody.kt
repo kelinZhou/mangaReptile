@@ -7,7 +7,6 @@ import okio.*
 import java.io.IOException
 
 class DownloadProgressResponseBody(
-    private val downloadIdentifier: String,
     private val responseBody: ResponseBody,
     private val progressListener: DownloadProgressListener?
 ) : ResponseBody() {
@@ -37,7 +36,6 @@ class DownloadProgressResponseBody(
                     totalBytesRead += bytesRead
                 }
                 progressListener?.update(
-                    downloadIdentifier,
                     totalBytesRead,
                     responseBody.contentLength(),
                     bytesRead == -1L

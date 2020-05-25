@@ -1,5 +1,6 @@
 package com.neuifo.mangareptile.ui.home
 
+import android.os.Bundle
 import com.hw.ycshareelement.YcShareElement
 import com.hw.ycshareelement.transition.IShareElementSelector
 import com.hw.ycshareelement.transition.ShareElementInfo
@@ -16,6 +17,19 @@ import io.reactivex.Observable
 class UpdateComicListFragment :
     ItemListFragmentPresenter<UpdateComicListDelegate, UpdateComicListDelegate.UpdateComicListDelegateCallBack, String, ComicUpdateCell, MutableList<ComicUpdate>>() {
 
+
+    companion object {
+
+        val DATA_TYPE = "DATA_TYPE"
+
+        fun getInstance(isHome: Boolean): UpdateComicListFragment {
+            return UpdateComicListFragment().apply {
+                val bundle = Bundle()
+                bundle.putBoolean(DATA_TYPE, isHome)
+                arguments = bundle
+            }
+        }
+    }
 
     override fun transformUIData(
         page: Int,
@@ -56,7 +70,10 @@ class UpdateComicListFragment :
         id: String,
         page: Int,
         size: Int
-    ): Observable<MutableList<ComicUpdate>> = API.DMZJ_Dmzj.getLastestList(page)
+    ): Observable<MutableList<ComicUpdate>> =
+        if (requireArguments().getBoolean(DATA_TYPE))
+            API.DMZJ_Dmzj.getLastestList(page)
+        else API.DMZJ_Dmzj.getSubscribe(page)
 
     override val initialRequestId: String
         get() = ""
@@ -66,7 +83,5 @@ class UpdateComicListFragment :
 
 
     private inner class UpdateComicListFragmentCallback : ItemListDelegateCallbackImpl(),
-        UpdateComicListDelegate.UpdateComicListDelegateCallBack {
-
-    }
+        UpdateComicListDelegate.UpdateComicListDelegateCallBack
 }

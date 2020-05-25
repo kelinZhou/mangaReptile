@@ -13,7 +13,8 @@ class UpdateComicListDelegate :
         return GridLayoutManager(context, 3).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
-                    return if (position >= adapter.itemCount - 1) 3 else 1
+                    // return if (position >= adapter.itemCount - 1) 3 else 1
+                    return 1
                 }
             }
         }

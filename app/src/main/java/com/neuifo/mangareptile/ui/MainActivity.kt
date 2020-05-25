@@ -1,6 +1,7 @@
 package com.neuifo.mangareptile.ui
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.ui.base.BaseActivity
 import com.neuifo.mangareptile.ui.base.flyweight.adapter.CommonFragmentStatePagerAdapter

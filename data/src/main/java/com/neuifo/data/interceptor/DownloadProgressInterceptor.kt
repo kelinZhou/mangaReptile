@@ -13,16 +13,11 @@ class DownloadProgressInterceptor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalResponse = chain.proceed(chain.request())
         val builder = originalResponse.newBuilder()
-        val downloadIdentifier = originalResponse.request()
-            .header(DOWNLOAD_IDENTIFIER_HEADER)
         val isAStream =
-            originalResponse.header("content-type", "") == "application/octet-stream"
-        val fileIdentifierIsSet =
-            downloadIdentifier != null && !downloadIdentifier.isEmpty()
-        if (isAStream && fileIdentifierIsSet) { // someone need progress informations !
+            originalResponse.header("content-type", "") == "image/jpeg"
+        if (isAStream) { // someone need progress informations !
             builder.body(
                 DownloadProgressResponseBody(
-                    downloadIdentifier!!,
                     originalResponse.body()!!,
                     progressListener
                 )

@@ -1,5 +1,7 @@
 package com.neuifo.data
 
+import android.view.View
+
 object Constansts {
 
     val CHANNEL = "channel"
@@ -10,11 +12,12 @@ object Constansts {
 
     val TIMESTAMP = "TIMESTAMP"
 
-    val DEBUG= "_debug"
-    val DEBUG_VERSION= "0"
+    val DEBUG = "_debug"
+    val DEBUG_VERSION = "0"
 
 
-    val TOKEN= "dmzj_token"
+    val TOKEN = "dmzj_token"
 
-    val UID= "uid"
+    val UID = "uid"
+
 }

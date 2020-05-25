@@ -1,5 +1,8 @@
 package com.neuifo.mangareptile.utils
 
+import android.content.Context
+import android.content.res.ColorStateList
+import android.content.res.Resources.NotFoundException
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -9,10 +12,14 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.AttrRes
+import androidx.annotation.NonNull
 
-object  ViewUtils {
+object ViewUtils {
+
     fun decodeString(
         source: String,
         regx: String,

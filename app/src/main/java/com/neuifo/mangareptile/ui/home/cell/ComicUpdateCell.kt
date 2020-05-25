@@ -14,8 +14,10 @@ class ComicUpdateCell(var comicUpdate: ComicUpdate) : SimpleCell(), IShareElemen
 
 
     override fun onBindData(iv: View) {
-        ImageLoaderUtils.displayRoundCorners(iv.item_comic_cover, comicUpdate.cover, 20)
-        ViewCompat.setTransitionName(iv.item_comic_cover,comicUpdate.cover)
+        if (!comicUpdate.cover.isNullOrEmpty()) {
+            ImageLoaderUtils.displayRoundCorners(iv.item_comic_cover, comicUpdate.cover, 20)
+            ViewCompat.setTransitionName(iv.item_comic_cover, comicUpdate.cover)
+        }
         iv.item_comic_title.text = comicUpdate.title
         iv.item_comic_update_chapter.text = comicUpdate.updateContent()
         iv.item_comic_read_chapter.text = comicUpdate.readContent()
