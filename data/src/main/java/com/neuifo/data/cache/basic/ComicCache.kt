@@ -9,6 +9,7 @@ interface ComicCache {
 
     fun queryComicByIDs(ids: List<Long>): Observable<MutableList<ComicUpdate>>
 
+    @Deprecated(" 影响shared element。弃用")
     fun saveComicDetail(detail: ComicDetail)
 
     fun saveReadDetail(comicId: Long, chapterId: Long, chapterName: String, chapterIndex: Int)

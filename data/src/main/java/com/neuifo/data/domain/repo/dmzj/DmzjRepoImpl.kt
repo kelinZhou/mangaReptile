@@ -108,7 +108,7 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
                     item.showMarker = item.chapterId > lastReadChapterId
                 }
             }
-            CacheFactory.instance.comicCache?.saveComicDetail(it)
+            //CacheFactory.instance.comicCache?.saveComicDetail(it)
             ComicDetailWarpper(it, mutableListOf())
         }
     }

@@ -4,14 +4,11 @@ import android.os.Bundle
 import com.hw.ycshareelement.YcShareElement
 import com.hw.ycshareelement.transition.IShareElementSelector
 import com.hw.ycshareelement.transition.ShareElementInfo
-import com.neuifo.domain.model.dmzj.ComicDetail
 import com.neuifo.domain.model.dmzj.ComicUpdate
 import com.neuifo.mangareptile.data.core.API
 import com.neuifo.mangareptile.ui.Navigator
 import com.neuifo.mangareptile.ui.base.presenter.ItemListFragmentPresenter
-import com.neuifo.mangareptile.ui.detail.ExitTransition
 import com.neuifo.mangareptile.ui.home.cell.ComicUpdateCell
-import com.neuifo.mangareptile.utils.ToastUtil
 import io.reactivex.Observable
 
 class UpdateComicListFragment :
@@ -58,9 +55,10 @@ class UpdateComicListFragment :
             item.comicUpdate.cover,
             options
         ) { resultCode, data ->
+
+
             YcShareElement.onActivityReenter(requireActivity(), resultCode, data,
-                IShareElementSelector { list: MutableList<ShareElementInfo<*>> ->
-                    val shareElementInfo = list[0]
+                IShareElementSelector { _: MutableList<ShareElementInfo<*>> ->
                 })
         }
         return super.onInterceptListItemClick(position, item)
@@ -71,7 +69,7 @@ class UpdateComicListFragment :
         page: Int,
         size: Int
     ): Observable<MutableList<ComicUpdate>> =
-        if (true)
+        if (requireArguments().getBoolean(DATA_TYPE))
             API.DMZJ_Dmzj.getLastestList(page)
         else API.DMZJ_Dmzj.getSubscribe(page)
 

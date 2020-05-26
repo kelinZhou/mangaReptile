@@ -82,13 +82,12 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
     override fun saveComicDetail(detail: ComicDetail) {
         comicDB.dbComicDetailInfoQueries.transaction {
             comicDB.dbComicDetailInfoQueries.save_comic_detail(
-                detail.id,
-                detail.title,
                 detail.authors.joinToString("/") { it.name },
                 detail.types.joinToString("/") { it.name },
                 detail.status.joinToString("/") { it.name },
                 detail.latest_update_chapter_name,
-                detail.description
+                detail.description,
+                detail.id
             )
         }
     }

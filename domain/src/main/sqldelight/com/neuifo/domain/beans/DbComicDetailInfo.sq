@@ -34,8 +34,8 @@ REPLACE INTO comic_detail_info(id,title,authors,types,conver,status,latest_updat
 VALUES(?,?,?,?,?,? ,?);
 
 save_comic_detail:
-REPLACE INTO comic_detail_info(id,title,authors,types,status,latest_update_chapter_name,description)
-VALUES(?,?,?,?,?,?,?);
+UPDATE comic_detail_info SET authors=?,types=?,status=?,latest_update_chapter_name=?,description=?
+WHERE id = ?;
 
 save_read_info:
 UPDATE comic_detail_info SET last_read_chapter_id=?,last_read_index=?,last_read_chapter_name=? WHERE id=?;

@@ -1,8 +1,6 @@
 package com.neuifo.mangareptile.ui.detail
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -16,8 +14,6 @@ import com.neuifo.mangareptile.ui.Navigator
 import com.neuifo.mangareptile.ui.base.listcell.SimpleCell
 import com.neuifo.mangareptile.ui.base.presenter.ItemListFragmentPresenter
 import com.neuifo.mangareptile.ui.detail.cell.ComicChapterCell
-import com.neuifo.mangareptile.utils.ToastUtil
-import com.neuifo.mangareptile.utils.getSubscribedAction
 import com.neuifo.mangareptile.utils.statusbar.StatusBarHelper
 import io.reactivex.Observable
 
