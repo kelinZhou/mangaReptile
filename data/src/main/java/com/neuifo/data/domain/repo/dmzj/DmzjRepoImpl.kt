@@ -5,7 +5,9 @@ import com.neuifo.data.api.dmzj.ImageApi
 import com.neuifo.domain.model.base.HttpResult
 import com.neuifo.data.api.dmzj.DmzjApi
 import com.neuifo.data.api.dmzj.Host
+import com.neuifo.data.cache.CacheFactory
 import com.neuifo.data.cache.ComicDetailCacheImpl
+import com.neuifo.data.cache.basic.ComicCache
 import com.neuifo.data.converter.CommonConverter
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.data.interceptor.DownloadProgressInterceptor
@@ -32,8 +34,8 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
         )
     }
 
-    private val comicCache: ComicDetailCacheImpl by lazy {
-        ComicDetailCacheImpl(context)
+    private val comicCache: ComicCache by lazy {
+        CacheFactory.instance.comicCache!!
     }
 
 
@@ -42,7 +44,10 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
     }
 
     override fun getSubscribe(page: Int): Observable<MutableList<ComicUpdate>> {
-        return dmzjApi.getSubscribe(page = page)
+        return dmzjApi.getSubscribe(page = page - 1).map {
+            comicCache.saveListSubscribe(it)
+            it
+        }
     }
 
     override fun getLastestList(page: Int): Observable<MutableList<ComicUpdate>> {
@@ -70,16 +75,23 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
                     }
                 }
                 data.toMutableList().apply {
-                    forEach {
-                        LogHelper.system.d(
-                            "时间：" + DateHelper.formatData(
-                                DateType.DATE_FORMAT_MM_DD_HH_MM,
-                                it.latest_update_time * 1000
-                            )
-                        )
-                    }
+                    //comicCache.saveComicUpdate(this)
                 }
             }
+        }
+    }
+
+    override fun subscribeComic(comicId: Long): Observable<Boolean> {
+        return dmzjApi.addSubscribe(comicId).map {
+            comicCache.saveSubscribe(1, comicId)
+            true
+        }
+    }
+
+    override fun unSubscribeComic(comicId: Long): Observable<Boolean> {
+        return dmzjApi.cancelSubscribe(comicId).map {
+            comicCache.saveSubscribe(0, comicId)
+            true
         }
     }
 
@@ -96,6 +108,7 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
                     item.showMarker = item.chapterId > lastReadChapterId
                 }
             }
+            CacheFactory.instance.comicCache?.saveComicDetail(it)
             ComicDetailWarpper(it, mutableListOf())
         }
     }

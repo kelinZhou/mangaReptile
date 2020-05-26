@@ -9,8 +9,10 @@ status TEXT,
 latest_update_chapter_name TEXT,
 latest_update_chapter_id INTEGER,
 latest_update_time INTEGER,
-last_read_name TEXT,
 last_read_chapter_id INTEGER  DEFAULT 0,
+last_read_index INTEGER DEFAULT 0,
+last_read_chapter_name TEXT,
+subscribed INTEGER DEFAULT 0,
 description TEXT,
 
 PRIMARY KEY(id,title)
@@ -18,13 +20,25 @@ PRIMARY KEY(id,title)
 
 
 query_list_comic:
-SELECT id,last_read_name,last_read_chapter_id FROM comic_detail_info
+SELECT id,last_read_chapter_name,last_read_chapter_id FROM comic_detail_info
 WHERE id IN ?;
 
+query_subscribe:
+SELECT subscribed FROM comic_detail_info WHERE id=?;
 
-save_comic_info:
-REPLACE INTO comic_detail_info(id,title,authors,types,conver,status,latest_update_chapter_name,latest_update_chapter_id,latest_update_time,description)
-VALUES(?,?,?,?,?,?,?,?,?,?);
+save_subscribe:
+UPDATE comic_detail_info SET subscribed = ? WHERE id=?;
+
+save_comic_update:
+REPLACE INTO comic_detail_info(id,title,authors,types,conver,status,latest_update_chapter_name)
+VALUES(?,?,?,?,?,? ,?);
+
+save_comic_detail:
+REPLACE INTO comic_detail_info(id,title,authors,types,status,latest_update_chapter_name,description)
+VALUES(?,?,?,?,?,?,?);
+
+save_read_info:
+UPDATE comic_detail_info SET last_read_chapter_id=?,last_read_index=?,last_read_chapter_name=? WHERE id=?;
 
 query_last_read_chapter_id:
 SELECT last_read_chapter_id FROM comic_detail_info

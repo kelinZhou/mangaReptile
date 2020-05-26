@@ -71,7 +71,7 @@ class UpdateComicListFragment :
         page: Int,
         size: Int
     ): Observable<MutableList<ComicUpdate>> =
-        if (requireArguments().getBoolean(DATA_TYPE))
+        if (true)
             API.DMZJ_Dmzj.getLastestList(page)
         else API.DMZJ_Dmzj.getSubscribe(page)
 

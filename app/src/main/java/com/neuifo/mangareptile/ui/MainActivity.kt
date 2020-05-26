@@ -1,12 +1,12 @@
 package com.neuifo.mangareptile.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.neuifo.mangareptile.R
 import com.neuifo.mangareptile.ui.base.BaseActivity
 import com.neuifo.mangareptile.ui.base.flyweight.adapter.CommonFragmentStatePagerAdapter
 import com.neuifo.mangareptile.ui.home.HomeFragment
 import com.neuifo.mangareptile.ui.home.TestFragment
+import com.neuifo.mangareptile.utils.FinishHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import me.ibrahimsn.lib.OnItemSelectedListener
 
@@ -30,5 +30,14 @@ class MainActivity : BaseActivity() {
                 main_root_pager.currentItem = pos
             }
         })
+    }
+
+    private val finishHelper: FinishHelper = FinishHelper.createInstance()
+
+
+    override fun onBackPressed() {
+        if (finishHelper.canFinish()) {
+            super.onBackPressed()
+        }
     }
 }

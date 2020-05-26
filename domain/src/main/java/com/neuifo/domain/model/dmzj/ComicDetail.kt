@@ -23,27 +23,27 @@ class ComicDetail(
     @SerializedName("last_updatetime")
     var latest_update_time: Long,
     var last_read_name: String,
-    var description: String,
-    var last_read_chapter_id: Long
+    var last_read_chapter_id: Long,
+    var last_read_index: Long,
+    var description: String
     //var comment:MutableList<Comment>
 ) : Parcelable {
-
     constructor(source: Parcel) : this(
         source.readLong(),
         source.readString(),
         source.createTypedArrayList(TagContent.CREATOR),
         source.createTypedArrayList(TagContent.CREATOR),
         source.readString(),
-        mutableListOf(),
+        source.createTypedArrayList(TagContent.CREATOR),
         source.readLong(),
-        //source.createTypedArrayList(WarpData.CREATOR),
-        mutableListOf(),
+        source.createTypedArrayList(WarpData.CREATOR),
         source.readString(),
         source.readLong(),
         source.readLong(),
         source.readString(),
-        source.readString(),
-        source.readLong()
+        source.readLong(),
+        source.readLong(),
+        source.readString()
     )
 
     override fun describeContents() = 0
@@ -54,15 +54,16 @@ class ComicDetail(
         writeTypedList(authors)
         writeTypedList(types)
         writeString(cover)
-        //writeString(status)
+        writeTypedList(status)
         writeLong(subscribeNum)
-        //writeTypedList(chapters)
+        writeTypedList(chapters)
         writeString(latest_update_chapter_name)
         writeLong(latest_update_chapter_id)
         writeLong(latest_update_time)
         writeString(last_read_name)
-        writeString(description)
         writeLong(last_read_chapter_id)
+        writeLong(last_read_index)
+        writeString(description)
     }
 
     companion object {
@@ -71,7 +72,6 @@ class ComicDetail(
             override fun createFromParcel(source: Parcel): ComicDetail = ComicDetail(source)
             override fun newArray(size: Int): Array<ComicDetail?> = arrayOfNulls(size)
         }
-
 
         fun createShareData(id: Long, cover: String): ComicDetail {
             return ComicDetail(
@@ -87,8 +87,9 @@ class ComicDetail(
                 0L,
                 0L,
                 "",
-                "",
-                0L
+                0L,
+                0L,
+                ""
             )
         }
     }

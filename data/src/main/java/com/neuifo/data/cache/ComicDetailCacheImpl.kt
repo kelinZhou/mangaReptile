@@ -37,26 +37,74 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
                 itemList.map {
                     ComicUpdate.createReadInfo(
                         it.id,
-                        it.last_read_name,
+                        it.last_read_chapter_name,
                         it.last_read_chapter_id
                     )
                 }.toMutableList()
             }
     }
 
+    override fun saveListSubscribe(data: MutableList<ComicUpdate>) {
+        comicDB.dbComicDetailInfoQueries.transaction {
+            data.map {
+                comicDB.dbComicDetailInfoQueries.save_subscribe(1, it.id)
+            }
+        }
+    }
+
+    override fun saveSubscribe(code: Int, comicId: Long) {
+        comicDB.dbComicDetailInfoQueries.transaction {
+            comicDB.dbComicDetailInfoQueries.save_subscribe(code.toLong(), comicId)
+        }
+    }
+
+    override fun hasSubscribed(comicId: Long): Int {
+        return comicDB.dbComicDetailInfoQueries.query_subscribe(comicId).executeAsOneOrNull()?.subscribed?.toInt()
+            ?: 0
+    }
+
+    override fun saveComicUpdate(comicUpdate: MutableList<ComicUpdate>) {
+        comicDB.dbComicDetailInfoQueries.transaction {
+            comicUpdate.map { detail ->
+                comicDB.dbComicDetailInfoQueries.save_comic_update(
+                    detail.id,
+                    detail.title,
+                    detail.authors,
+                    detail.types,
+                    detail.cover,
+                    detail.status,
+                    detail.latest_update_chapter_name
+                )
+            }
+        }
+    }
+
     override fun saveComicDetail(detail: ComicDetail) {
         comicDB.dbComicDetailInfoQueries.transaction {
-            comicDB.dbComicDetailInfoQueries.save_comic_info(
+            comicDB.dbComicDetailInfoQueries.save_comic_detail(
                 detail.id,
                 detail.title,
                 detail.authors.joinToString("/") { it.name },
                 detail.types.joinToString("/") { it.name },
-                detail.cover,
                 detail.status.joinToString("/") { it.name },
                 detail.latest_update_chapter_name,
-                detail.latest_update_chapter_id,
-                detail.latest_update_time,
                 detail.description
+            )
+        }
+    }
+
+    override fun saveReadDetail(
+        comicId: Long,
+        chapterId: Long,
+        chapterName: String,
+        chapterIndex: Int
+    ) {
+        comicDB.dbComicDetailInfoQueries.transaction {
+            comicDB.dbComicDetailInfoQueries.save_read_info(
+                chapterId,
+                chapterIndex.toLong(),
+                chapterName,
+                comicId
             )
         }
     }

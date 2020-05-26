@@ -28,8 +28,6 @@ import com.neuifo.mangareptile.event.EventBus
 import com.neuifo.mangareptile.event.EventHolder
 import com.neuifo.mangareptile.utils.MeasureUtil
 import com.neuifo.mangareptile.utils.statusbar.StatusBarHelper
-import kotlinx.android.extensions.CacheImplementation
-import kotlinx.android.extensions.ContainerOptions
 
 
 /**
@@ -41,7 +39,6 @@ import kotlinx.android.extensions.ContainerOptions
  *
  * **版本:** v 1.0.0
  */
-@ContainerOptions(cache = CacheImplementation.NO_CACHE)
 abstract class BaseActivity : AppCompatActivity(), EventBus.OnEventListener<EventBus.BusEvent> {
 
     /**

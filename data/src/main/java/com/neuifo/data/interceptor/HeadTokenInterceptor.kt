@@ -57,7 +57,7 @@ class HeadTokenInterceptor(private val ticket: String, private val uid: Long) : 
             val request = originalRequest.newBuilder().url(url).build()
             return chain.proceed(request)
         } else if (method.endsWith("POST")) {
-            val parameter = "&$TOKEN=$ticket&$UID=$uid"
+            val parameter = "&$TOKEN=$ticket&$UID=$uid&$DEBUG=$DEBUG_VERSION"
             val newRequest = interceptRequest(originalRequest, parameter)
             return chain.proceed(newRequest)
         }

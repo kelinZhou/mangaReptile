@@ -20,6 +20,8 @@ import com.hippo.yorozuya.AnimationUtils
 import com.hippo.yorozuya.MathUtils
 import com.hippo.yorozuya.SimpleAnimatorListener
 import com.hippo.yorozuya.SimpleHandler
+import com.neuifo.data.cache.CacheFactory
+import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.domain.model.base.WarpData
 import com.neuifo.domain.model.dmzj.Chapter
 import com.neuifo.mangareptile.R
@@ -327,13 +329,13 @@ class ComicReadActivity : AppCompatActivity(),
                         R.dimen.common_button_height
                     ) else 0
                 )
-
             }
         }
     }
 
     override fun onUpdateCurrentIndex(index: Int) {
-
+        //CacheFactory.instance.comicCache?.saveReadDetail()
+        LogHelper.system.e("onUpdateCurrentIndex:-----${index}")
     }
 
     override fun onTapErrorText(index: Int) {

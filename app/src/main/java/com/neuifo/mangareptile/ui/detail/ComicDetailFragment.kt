@@ -11,10 +11,13 @@ import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.domain.model.dmzj.ComicDetail
 import com.neuifo.domain.model.dmzj.ComicDetailWarpper
 import com.neuifo.mangareptile.data.core.API
+import com.neuifo.mangareptile.data.proxy.ProxyFactory
 import com.neuifo.mangareptile.ui.Navigator
 import com.neuifo.mangareptile.ui.base.listcell.SimpleCell
 import com.neuifo.mangareptile.ui.base.presenter.ItemListFragmentPresenter
 import com.neuifo.mangareptile.ui.detail.cell.ComicChapterCell
+import com.neuifo.mangareptile.utils.ToastUtil
+import com.neuifo.mangareptile.utils.getSubscribedAction
 import com.neuifo.mangareptile.utils.statusbar.StatusBarHelper
 import io.reactivex.Observable
 
@@ -122,6 +125,14 @@ class ComicDetailFragment :
 
         override fun exit() {
             requireActivity().finish()
+        }
+
+        override fun subscrbie(flag: Boolean) {
+            ProxyFactory.createIdProxy<Long, Boolean> {
+                if (flag) API.DMZJ_Dmzj.subscribeComic(it) else API.DMZJ_Dmzj.unSubscribeComic(it)
+            }.onSuccess { _, _ ->
+
+            }.request(initialRequestId)
         }
 
         override fun downLoad() {

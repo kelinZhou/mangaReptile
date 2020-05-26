@@ -16,6 +16,7 @@ last_update_chapter_name	String	第47卷
 last_update_chapter_id	Integer	98555
 last_update_time	Integer	1583992455
 
+last_update_chapter_name	String	第73话
 
 latest_update_chapter_name TEXT,
 latest_update_chapter_id INTEGER,
@@ -37,7 +38,7 @@ class ComicUpdate(
     var latest_update_chapter_name: String,
     @SerializedName("last_update_chapter_id")
     var latest_update_chapter_id: Long,
-    @SerializedName(value = "update_time", alternate = ["last_updatetime", "sub_uptime"])
+    @SerializedName(value = "update_time", alternate = ["last_update_time", "sub_uptime"])
     var latest_update_time: Long,
     var last_read_name: String,
     var last_read_chapter_id: Long

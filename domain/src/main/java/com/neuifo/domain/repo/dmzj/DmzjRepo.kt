@@ -22,4 +22,8 @@ interface DmzjRepo : Repo {
     fun getChapter(comicId: Long, chapterId: Long): Observable<Chapter>
 
     fun getImage(url: String, progressListener: DownloadProgressListener?): Observable<InputStream>
+
+    fun subscribeComic(comicId: Long): Observable<Boolean>
+
+    fun unSubscribeComic(comicId: Long): Observable<Boolean>
 }

@@ -6,6 +6,7 @@ import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
 import com.hw.ycshareelement.transition.IShareElements
 import com.hw.ycshareelement.transition.ShareElementInfo
+import com.neuifo.data.cache.CacheFactory
 import com.neuifo.domain.model.dmzj.ComicDetail
 import com.neuifo.domain.utils.DateHelper
 import com.neuifo.domain.utils.DateType
@@ -14,9 +15,7 @@ import com.neuifo.mangareptile.domain.util.ImageLoaderUtils
 import com.neuifo.mangareptile.ui.base.delegate.ItemListDelegate
 import com.neuifo.mangareptile.ui.base.listcell.SimpleCell
 import com.neuifo.mangareptile.ui.base.presenter.ViewPresenter
-import com.neuifo.mangareptile.utils.AppBarStateChangeListener
-import com.neuifo.mangareptile.utils.KFontHandler
-import com.neuifo.mangareptile.utils.ViewUtils
+import com.neuifo.mangareptile.utils.*
 import kotlinx.android.synthetic.main.item_comic_detail_bar_head.*
 import kotlinx.android.synthetic.main.layout_comic_detail.*
 import kotlinx.android.synthetic.main.layout_comic_detail_head.*
@@ -40,6 +39,9 @@ class ComicDetailDelegate :
     fun updateComicInfo(comicDetail: ComicDetail) {
         layout_comic_detail_head_title.text = comicDetail.title
         layout_item_comic_detail_toolbar_title.text = comicDetail.title
+        layout_comic_detail_head_subscribe.text =
+            CacheFactory.instance.comicCache?.hasSubscribed(comicDetail.id)?.getSubscribed()
+                ?.getSubscribedText()
 
         layout_comic_detail_head_author.text =
             KFontHandler.format("作者:${comicDetail.authors.joinToString("  ") { "<kFont clickable=${it.id} style=underline>${it.name}</kFont>" }}") { authorId ->
@@ -51,7 +53,9 @@ class ComicDetailDelegate :
             comicDetail.latest_update_time * 1000
         )}  ${comicDetail.status.joinToString("/") { it.name }}"
         layout_comic_detail_comic_desc.text = comicDetail.description
-
+        layout_comic_detail_head_subscribe.setOnClickListener {
+            viewCallback.subscrbie(!layout_comic_detail_head_subscribe.text.contains("取消"))
+        }
     }
 
     var titleHeight = 0
@@ -113,6 +117,7 @@ class ComicDetailDelegate :
         fun jumpToAuth(id: String)
 
         fun exit()
+        fun subscrbie(flag: Boolean)
         fun downLoad()
     }
 

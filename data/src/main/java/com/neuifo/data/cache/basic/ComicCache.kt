@@ -11,5 +11,15 @@ interface ComicCache {
 
     fun saveComicDetail(detail: ComicDetail)
 
+    fun saveReadDetail(comicId: Long, chapterId: Long, chapterName: String, chapterIndex: Int)
+
     fun queryLastReadChapterId(comicId: Long): Long
+
+    fun saveSubscribe(code: Int, comicId: Long)
+
+    fun hasSubscribed(comicId: Long):Int
+
+    fun saveListSubscribe(data: MutableList<ComicUpdate>)
+
+    fun saveComicUpdate(comicUpdate: MutableList<ComicUpdate>)
 }

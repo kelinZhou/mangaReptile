@@ -39,6 +39,22 @@ interface DmzjApi {
     ): Observable<ComicDetail>
 
 
+    //http://v3api.dmzj.com/subscribe/add
+    //obj_ids	54222
+    //uid	107228800
+    @POST("/subscribe/add")
+    @FormUrlEncoded
+    fun addSubscribe(
+        @Field("obj_ids") comicId: Long,
+        @Field("type") type: String = "mh"
+    ): Observable<HttpResult<String>>
+
+    @POST("/subscribe/cancel")
+    fun cancelSubscribe(
+        @Field("obj_ids") comicId: Long,
+        @Field("type") type: String = "mh"
+    ): Observable<HttpResult<String>>
+
     @GET("/chapter/{comicId}/{chapterId}.json")
     fun getChapterDetail(
         @Path("comicId") comicId: Long,
