@@ -23,6 +23,7 @@ interface DmzjApi {
         @Query("sub_type") sub_type: Int = 1,
         @Query("letter") letter: String = "all",
         @Query("page") page: Int,
+        @Query("size") size: Int = 30,
         @Query("type") type: Int = 0
     ): Observable<MutableList<ComicUpdate>>
 

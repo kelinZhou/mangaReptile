@@ -44,40 +44,49 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
     }
 
     override fun getSubscribe(page: Int): Observable<MutableList<ComicUpdate>> {
-        return dmzjApi.getSubscribe(page = page - 1).map {
-            comicCache.saveListSubscribe(it)
-            it
+        return dmzjApi.getSubscribe(page = page - 1).map { data ->
+            comicCache.saveComicUpdate(data)
+            comicCache.saveListSubscribe(data)
+            mapReadHistory(data)
+            data
+        }
+    }
+
+    private fun mapReadHistory(data: MutableList<ComicUpdate>) {
+        comicCache.queryComicByIDs(data.map { it.id }).map { queryData ->
+            val returnData = data.find { it.id == queryData.id }
+            if (returnData != null) {
+                returnData.last_read_name = queryData.last_read_name
+                returnData.last_read_chapter_id = queryData.last_read_chapter_id
+            }
         }
     }
 
     override fun getLastestList(page: Int): Observable<MutableList<ComicUpdate>> {
+        val latest = dmzjApi.getLatest(page - 1).map {
+            comicCache.saveComicUpdate(it)
+            it
+        }
         val orignSource = if (page == 1) {
             dmzjApi.getRecommendList().onErrorReturn { HttpResult<RecommendItem>() }
                 .zipWith(
-                    dmzjApi.getLatest(page - 1),
+                    latest,
                     BiFunction { t1: HttpResult<RecommendItem>, t2: MutableList<ComicUpdate> ->
                         t2.sort()
-                        if (!t1.isEmpty && t1.data.items.isNotEmpty())
+                        if (!t1.isEmpty && t1.data.items.isNotEmpty()) {
                             t2.addAll(0, t1.data.items)
+                            comicCache.saveComicUpdate(t1.data.items)
+                            comicCache.saveListSubscribe(t1.data.items
+                             )
+                        }
                         t2
                     })
         } else {
-            dmzjApi.getLatest(page - 1)
+            latest
         }
-        return orignSource.flatMap { data ->
-            comicCache.queryComicByIDs(data.map { it.id }).map { queryResult ->
-                queryResult.map { queryData ->
-                    val returnData = data.find { it.id == queryData.id }
-                    if (returnData != null) {
-                        returnData.last_read_name = queryData.last_read_name
-                        returnData.latest_update_chapter_name =
-                            queryData.latest_update_chapter_name
-                    }
-                }
-                data.toMutableList().apply {
-                    //comicCache.saveComicUpdate(this)
-                }
-            }
+        return orignSource.map { data ->
+            mapReadHistory(data)
+            data
         }
     }
 

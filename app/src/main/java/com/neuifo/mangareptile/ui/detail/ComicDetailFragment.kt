@@ -1,11 +1,14 @@
 package com.neuifo.mangareptile.ui.detail
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import com.hw.ycshareelement.YcShareElement
+import com.neuifo.data.cache.CacheFactory
 import com.neuifo.data.domain.utils.LogHelper
+import com.neuifo.domain.model.dmzj.Chapter
 import com.neuifo.domain.model.dmzj.ComicDetail
 import com.neuifo.domain.model.dmzj.ComicDetailWarpper
 import com.neuifo.mangareptile.data.core.API
@@ -24,11 +27,22 @@ class ComicDetailFragment :
     companion object {
         private const val COMIC_DETAIL_ID = "comic_detail_id"
         private const val COMIC_DETAIL_COVER = "comic_detail_cover"
+        private const val COMIC_READ_CHAPTER_NAME = "comic_read_chapter_name"
+
 
         fun setComicId(intent: Intent, comicId: Long, cover: String) {
             intent.putExtra(COMIC_DETAIL_ID, comicId)
             intent.putExtra(COMIC_DETAIL_COVER, cover)
         }
+
+        fun getResultIntent(data: String): Intent {
+            return Intent().apply { putExtra(COMIC_READ_CHAPTER_NAME, data) }
+        }
+
+        fun getResultData(intent: Intent): String {
+            return intent.getStringExtra(COMIC_READ_CHAPTER_NAME)
+        }
+
     }
 
 
@@ -60,6 +74,16 @@ class ComicDetailFragment :
         super.onDestroyView()
     }
 
+    override fun onInterceptBackPressed(): Boolean {
+        requireActivity().setResult(
+            Activity.RESULT_OK,
+            getResultIntent(
+                CacheFactory.instance.comicCache?.queryLastReadChapterName(initialRequestId) ?: ""
+            )
+        )
+        return super.onInterceptBackPressed()
+    }
+
     override fun transformUIData(
         page: Int,
         itemList: MutableList<SimpleCell>,
@@ -68,7 +92,10 @@ class ComicDetailFragment :
         if (page == 1) {
             viewDelegate?.updateComicInfo(data.comicDetail)
             data.comicDetail.chapters.map { it ->
-                itemList.add(ComicChapterCell(it) { chapter ->
+                itemList.add(ComicChapterCell(it) click@{ chapter ->
+                    if (chapter.chapterId == Chapter.SAMPLE) {
+                        return@click
+                    }
                     Navigator.jumpToGallery(
                         requireActivity(),
                         comicDetail.id,

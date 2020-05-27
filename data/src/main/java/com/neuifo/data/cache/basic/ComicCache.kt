@@ -2,23 +2,26 @@ package com.neuifo.data.cache.basic
 
 import com.neuifo.domain.model.dmzj.ComicDetail
 import com.neuifo.domain.model.dmzj.ComicUpdate
-import io.reactivex.Observable
 
 interface ComicCache {
 
 
-    fun queryComicByIDs(ids: List<Long>): Observable<MutableList<ComicUpdate>>
+    fun queryComicByIDs(ids: List<Long>): MutableList<ComicUpdate>
+
+    fun queryLastReadChapterId(comicId: Long): Long
+
+    fun queryLastReadChapterName(comicId: Long): String
+
+    fun hasSubscribed(comicId: Long): Int
+
+    fun queryLastReadPage(comicId: Long,chapterId: Long): Int
 
     @Deprecated(" 影响shared element。弃用")
     fun saveComicDetail(detail: ComicDetail)
 
     fun saveReadDetail(comicId: Long, chapterId: Long, chapterName: String, chapterIndex: Int)
 
-    fun queryLastReadChapterId(comicId: Long): Long
-
     fun saveSubscribe(code: Int, comicId: Long)
-
-    fun hasSubscribed(comicId: Long):Int
 
     fun saveListSubscribe(data: MutableList<ComicUpdate>)
 

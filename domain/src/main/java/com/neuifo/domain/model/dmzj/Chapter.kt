@@ -25,6 +25,8 @@ comment_count	Integer	27
  *
  */
 class Chapter(
+    @SerializedName("comic_id")
+    var comicId: Long,
     @SerializedName("chapter_id")
     var chapterId: Long,
     @SerializedName(value = "tag", alternate = ["chapter_title", "title"])
@@ -64,6 +66,7 @@ class Chapter(
 
     constructor(source: Parcel) : this(
         source.readLong(),
+        source.readLong(),
         source.readString(),
         source.readLong(),
         source.readLong(),
@@ -77,6 +80,7 @@ class Chapter(
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeLong(comicId)
         writeLong(chapterId)
         writeString(chapterTitle)
         writeLong(updateTime)
@@ -91,6 +95,21 @@ class Chapter(
         val CREATOR: Parcelable.Creator<Chapter> = object : Parcelable.Creator<Chapter> {
             override fun createFromParcel(source: Parcel): Chapter = Chapter(source)
             override fun newArray(size: Int): Array<Chapter?> = arrayOfNulls(size)
+        }
+
+        val SAMPLE = -1L
+
+        fun createSample(): Chapter {
+            return Chapter(
+                0,
+                SAMPLE,
+                "...",
+                0,
+                0,
+                0,
+                mutableListOf(),
+                0
+            )
         }
     }
 }

@@ -272,7 +272,14 @@ abstract class SuperRecyclerViewAdapter<T, VH>(
 
     protected abstract fun getItemType(position: Int): Int
 
-    final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    fun getLoadMoreViewType(): Int {
+        return lM?.itemLayoutId ?: -1
+    }
+
+    final override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): RecyclerView.ViewHolder {
         return if (viewType == lM?.itemLayoutId) {
             LoadMoreItemViewHolder(lM!!.getLayoutView(parent) {
                 lM!!.setLoadState()
@@ -294,7 +301,11 @@ abstract class SuperRecyclerViewAdapter<T, VH>(
     }
 
     @Suppress("UNCHECKED_CAST")
-    final override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+    final override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
         if (holder is ItemViewHolderInterface<*> && !isLoadMoreItem(position)) {
             val vh = holder as VH
             if (payloads.isEmpty()) {
@@ -353,7 +364,8 @@ abstract class SuperRecyclerViewAdapter<T, VH>(
      * @param listener           加载更多被触发的监听。
      */
     fun setLoadMoreView(
-        @LayoutRes loadMoreLayoutId: Int, @LayoutRes retryLayoutId: Int, @LayoutRes noMoreDataLayoutId: Int, listener: ((isReload: Boolean) -> Unit)
+        @LayoutRes loadMoreLayoutId: Int, @LayoutRes retryLayoutId: Int, @LayoutRes noMoreDataLayoutId: Int,
+        listener: ((isReload: Boolean) -> Unit)
     ) {
         setLoadMoreView(loadMoreLayoutId, retryLayoutId, noMoreDataLayoutId, 0, listener)
     }
@@ -374,7 +386,14 @@ abstract class SuperRecyclerViewAdapter<T, VH>(
             max = 10
         ) offset: Int, listener: ((isReload: Boolean) -> Unit)
     ) {
-        setLoadMoreView(LoadMoreLayoutManager(loadMoreLayoutId, retryLayoutId, noMoreDataLayoutId, offset), listener)
+        setLoadMoreView(
+            LoadMoreLayoutManager(
+                loadMoreLayoutId,
+                retryLayoutId,
+                noMoreDataLayoutId,
+                offset
+            ), listener
+        )
     }
 
     /**
@@ -383,7 +402,10 @@ abstract class SuperRecyclerViewAdapter<T, VH>(
      * @param layoutInfo LoadMore布局信息对象。
      * @param listener   加载更多被触发的监听。
      */
-    private fun setLoadMoreView(layoutInfo: LoadMoreLayoutManager, listener: ((isReload: Boolean) -> Unit)) {
+    private fun setLoadMoreView(
+        layoutInfo: LoadMoreLayoutManager,
+        listener: ((isReload: Boolean) -> Unit)
+    ) {
         lM = layoutInfo
         onLoadMoreListener = listener
     }

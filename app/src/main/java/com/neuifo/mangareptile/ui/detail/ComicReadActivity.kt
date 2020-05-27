@@ -60,6 +60,7 @@ class ComicReadActivity : AppCompatActivity(),
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
@@ -67,9 +68,9 @@ class ComicReadActivity : AppCompatActivity(),
 
         ProxyFactory.createIdProxy<Long, Chapter> { id ->
             API.DMZJ_Dmzj.getChapter(intent.getLongExtra(COMIC_ID, 0L), id)
-        }.onSuccess { comicId, chapter ->
+        }.onSuccess { _, chapter ->
+            currentChapter = chapter
             setData(
-                comicId,
                 chapter,
                 intent.getParcelableExtra(CHAPTERS)
             )
@@ -79,13 +80,19 @@ class ComicReadActivity : AppCompatActivity(),
 
     }
 
-
+    lateinit var currentChapter: Chapter
     lateinit var provider: GalleryProvider
     lateinit var glRootView: GLRootView
     lateinit var galleryView: GalleryView
 
-    private fun setData(comicId: Long, startChapter: Chapter, chapter: WarpData) {
-        provider = ComicProvider(comicId, startChapter, chapter)
+    var currentIndex = 0
+
+    private fun setData(startChapter: Chapter, chapter: WarpData) {
+        currentIndex = CacheFactory.instance.comicCache?.queryLastReadPage(
+            startChapter.comicId,
+            startChapter.chapterId
+        ) ?: 0
+        provider = ComicProvider(startChapter.comicId, startChapter, chapter)
         provider.start()
         val adapter = GalleryAdapter(glRootView, provider)
         provider.setListener(adapter)
@@ -97,7 +104,7 @@ class ComicReadActivity : AppCompatActivity(),
             .setLayoutMode(Settings.getReadingDirection())
             .setScaleMode(Settings.getPageScaling())
             .setStartPosition(Settings.getStartPosition())
-            .setStartPage(0)
+            .setStartPage(currentIndex)
             .setBackgroundColor(resources.getColor(R.color.colorPrimary))
             .setEdgeColor(resources.getColor(R.color.grey_3300000))
             .setPagerInterval(
@@ -177,6 +184,12 @@ class ComicReadActivity : AppCompatActivity(),
         super.onPause()
         glRootView.onPause()
         provider.stop()
+        CacheFactory.instance.comicCache?.saveReadDetail(
+            currentChapter.comicId,
+            currentChapter.chapterId,
+            currentChapter.chapterTitle,
+            currentIndex
+        )
     }
 
     override fun onResume() {
@@ -334,8 +347,7 @@ class ComicReadActivity : AppCompatActivity(),
     }
 
     override fun onUpdateCurrentIndex(index: Int) {
-        //CacheFactory.instance.comicCache?.saveReadDetail()
-        LogHelper.system.e("onUpdateCurrentIndex:-----${index}")
+        currentIndex = index
     }
 
     override fun onTapErrorText(index: Int) {

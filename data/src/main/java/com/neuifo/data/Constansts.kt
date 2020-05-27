@@ -1,8 +1,9 @@
 package com.neuifo.data
 
-import android.view.View
 
 object Constansts {
+
+    val MAX_CHAPTER_SIZE = 7
 
     val CHANNEL = "channel"
     val SOURCE = "android"

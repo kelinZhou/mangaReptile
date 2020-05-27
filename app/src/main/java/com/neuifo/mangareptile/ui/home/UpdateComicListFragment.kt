@@ -8,6 +8,7 @@ import com.neuifo.domain.model.dmzj.ComicUpdate
 import com.neuifo.mangareptile.data.core.API
 import com.neuifo.mangareptile.ui.Navigator
 import com.neuifo.mangareptile.ui.base.presenter.ItemListFragmentPresenter
+import com.neuifo.mangareptile.ui.detail.ComicDetailFragment
 import com.neuifo.mangareptile.ui.home.cell.ComicUpdateCell
 import io.reactivex.Observable
 
@@ -17,7 +18,7 @@ class UpdateComicListFragment :
 
     companion object {
 
-        val DATA_TYPE = "DATA_TYPE"
+        const val DATA_TYPE = "DATA_TYPE"
 
         fun getInstance(isHome: Boolean): UpdateComicListFragment {
             return UpdateComicListFragment().apply {
@@ -42,10 +43,11 @@ class UpdateComicListFragment :
         initialData: MutableList<ComicUpdate>,
         data: MutableList<ComicUpdate>
     ): MutableList<ComicUpdate> {
-        initialData.addAll(data)
-        return initialData
+        return initialData.apply {
+            addAll(data)
+            distinct()
+        }
     }
-
 
     override fun onInterceptListItemClick(position: Int, item: ComicUpdateCell): Boolean {
         val options = YcShareElement.buildOptionsBundle(requireActivity(), item)
@@ -55,8 +57,11 @@ class UpdateComicListFragment :
             item.comicUpdate.cover,
             options
         ) { resultCode, data ->
-
-
+            val resultData = ComicDetailFragment.getResultData(data)
+            if (!resultData.isNullOrEmpty()) {
+                item.comicUpdate.last_read_name = resultData
+                viewDelegate?.notifyItem(position)
+            }
             YcShareElement.onActivityReenter(requireActivity(), resultCode, data,
                 IShareElementSelector { _: MutableList<ShareElementInfo<*>> ->
                 })

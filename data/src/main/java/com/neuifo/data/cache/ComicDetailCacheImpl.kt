@@ -29,32 +29,36 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
     }
 
 
-    override fun queryComicByIDs(ids: List<Long>): Observable<MutableList<ComicUpdate>> {
-        return comicDB.dbComicDetailInfoQueries.query_list_comic(ids)
-            .asObservable()
-            .mapToList().map { itemList ->
-                //这里暂时不通过auto_value转换
-                itemList.map {
-                    ComicUpdate.createReadInfo(
-                        it.id,
-                        it.last_read_chapter_name,
-                        it.last_read_chapter_id
-                    )
-                }.toMutableList()
-            }
+    override fun queryComicByIDs(ids: List<Long>): MutableList<ComicUpdate> {
+        val executeAsList = comicDB.dbComicDetailInfoQueries.query_list_comic(ids).executeAsList()
+        if (executeAsList.isNullOrEmpty()) {
+            return mutableListOf()
+        }
+        return executeAsList.map {
+            ComicUpdate.createReadInfo(
+                it.id,
+                it.last_read_chapter_name,
+                it.last_read_chapter_id
+            )
+        }.toMutableList()
+    }
+
+    override fun queryLastReadChapterName(comicId: Long): String {
+        return comicDB.dbComicDetailInfoQueries.query_comic_last_read_name(comicId).executeAsOneOrNull()
+            ?.last_read_chapter_name ?: ""
     }
 
     override fun saveListSubscribe(data: MutableList<ComicUpdate>) {
         comicDB.dbComicDetailInfoQueries.transaction {
             data.map {
-                comicDB.dbComicDetailInfoQueries.save_subscribe(1, it.id)
+                comicDB.dbComicDetailInfoQueries.update_subscribe(1, it.id)
             }
         }
     }
 
     override fun saveSubscribe(code: Int, comicId: Long) {
         comicDB.dbComicDetailInfoQueries.transaction {
-            comicDB.dbComicDetailInfoQueries.save_subscribe(code.toLong(), comicId)
+            comicDB.dbComicDetailInfoQueries.update_subscribe(code.toLong(), comicId)
         }
     }
 
@@ -66,30 +70,51 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
     override fun saveComicUpdate(comicUpdate: MutableList<ComicUpdate>) {
         comicDB.dbComicDetailInfoQueries.transaction {
             comicUpdate.map { detail ->
-                comicDB.dbComicDetailInfoQueries.save_comic_update(
-                    detail.id,
-                    detail.title,
-                    detail.authors,
-                    detail.types,
-                    detail.cover,
-                    detail.status,
-                    detail.latest_update_chapter_name
-                )
+                val exist = comicDB.dbComicDetailInfoQueries.query_comic_exist(detail.id)
+                    .executeAsOneOrNull()?.toInt()
+                if (exist != null && exist != 0) {//update
+                    comicDB.dbComicDetailInfoQueries.update_comic_detail(
+                        detail.authors,
+                        detail.types,
+                        detail.status,
+                        detail.cover,
+                        detail.latest_update_chapter_name,
+                        detail.latest_update_time,
+                        "",
+                        detail.id
+                    )
+                } else {//insert
+                    comicDB.dbComicDetailInfoQueries.save_comic_update(
+                        detail.id,
+                        detail.title,
+                        detail.authors,
+                        detail.types,
+                        detail.status,
+                        detail.cover,
+                        detail.latest_update_chapter_name,
+                        detail.latest_update_time
+                    )
+                }
             }
         }
     }
 
     override fun saveComicDetail(detail: ComicDetail) {
         comicDB.dbComicDetailInfoQueries.transaction {
-            comicDB.dbComicDetailInfoQueries.save_comic_detail(
-                detail.authors.joinToString("/") { it.name },
-                detail.types.joinToString("/") { it.name },
-                detail.status.joinToString("/") { it.name },
-                detail.latest_update_chapter_name,
-                detail.description,
-                detail.id
-            )
+            //            comicDB.dbComicDetailInfoQueries.save_comic_detail(
+//                detail.authors.joinToString("/") { it.name },
+//                detail.types.joinToString("/") { it.name },
+//                detail.status.joinToString("/") { it.name },
+//                detail.latest_update_chapter_name,
+//                detail.description,
+//                detail.id
+//            )
         }
+    }
+
+    override fun queryLastReadPage(comicId: Long,chapterId: Long): Int {
+        return comicDB.dbComicDetailInfoQueries.query_last_read_page(comicId,chapterId).executeAsOneOrNull()?.last_read_index
+            ?.toInt() ?: 0
     }
 
     override fun saveReadDetail(
@@ -99,7 +124,7 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
         chapterIndex: Int
     ) {
         comicDB.dbComicDetailInfoQueries.transaction {
-            comicDB.dbComicDetailInfoQueries.save_read_info(
+            comicDB.dbComicDetailInfoQueries.update_read_info(
                 chapterId,
                 chapterIndex.toLong(),
                 chapterName,

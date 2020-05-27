@@ -24,6 +24,8 @@ last_read_name TEXT,
 last_read_chapter_id INTEGER,
 last_update_chapter_id	Integer	98598
 
+last_update_chapter_name	String	第02卷
+
  */
 class ComicUpdate(
     var id: Long,
@@ -56,7 +58,7 @@ class ComicUpdate(
     }
 
     fun readContent(): String {
-        return if (last_read_chapter_id == 0L) {
+        return if (last_read_name.isNullOrEmpty()) {
             "未读"
         } else {
             "看到:${last_read_name}"
@@ -92,6 +94,25 @@ class ComicUpdate(
         writeString(last_read_name)
         writeLong(last_read_chapter_id)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as ComicUpdate
+
+        if (id != other.id) return false
+        if (title != other.title) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + title.hashCode()
+        return result
+    }
+
 
     companion object {
         fun createReadInfo(

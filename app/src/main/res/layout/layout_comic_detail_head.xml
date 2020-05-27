@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black_000"
-    android:paddingBottom="20dp">
+    android:paddingBottom="10dp">
 
 
     <ImageView
@@ -19,20 +19,21 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/layout_comic_detail_head_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:textColor="@color/white"
-        android:maxHeight="80dp"
         android:textSize="22sp"
-        android:ellipsize="marquee"
         app:layout_constrainedWidth="true"
+        app:layout_constraintWidth_default="wrap"
         app:layout_constrainedHeight="true"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHeight_default="wrap"
         app:layout_constraintStart_toEndOf="@id/layout_comic_detail_head_cover"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试" />
+        app:layout_constraintTop_toTopOf="@id/layout_comic_detail_head_cover"
+        app:layout_constraintBottom_toTopOf="@id/layout_comic_detail_head_author"
+        tools:text="测试asdflk;测试asdflk测试asdflk测试asdflk测试asdflk测试asdflk测试asdflk" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -69,18 +70,19 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/layout_comic_detail_comic_desc"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:textColor="@color/white"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:paddingBottom="10dp"
+        android:layout_marginEnd="20dp"
         app:layout_constrainedWidth="true"
         app:layout_constraintHorizontal_bias="0"
-        android:ellipsize="end"
-        tools:text="123123123423423421342341234213412341234121231231234234234213423412342134123412341212312312342342342134234123421341234123412123123123423423421342341234213412341234121231231234234234213423412342134123412341212312312342342342134234123421341234123412"
-        app:layout_constraintStart_toStartOf="@id/layout_comic_detail_head_status"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_status"
-        app:layout_constraintBottom_toBottomOf="@id/layout_comic_detail_head_cover"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_default="wrap"
+        tools:text="123"
+        app:layout_constraintStart_toStartOf="@id/layout_comic_detail_head_cover"
+        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_cover"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
@@ -88,12 +90,12 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shape_button_comic_subscribe"
         android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/layout_comic_detail_head_read"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_cover"
+        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_comic_desc"
         android:text="开始订阅" />
 
 
@@ -101,13 +103,13 @@
         android:id="@+id/layout_comic_detail_head_read"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/shape_button_comic_read"
         android:text="阅读"
         android:textColor="@color/white"
         app:layout_constraintLeft_toRightOf="@id/layout_comic_detail_head_subscribe"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_head_cover" />
+        app:layout_constraintTop_toBottomOf="@id/layout_comic_detail_comic_desc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
