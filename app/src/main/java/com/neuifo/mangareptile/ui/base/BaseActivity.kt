@@ -57,7 +57,7 @@ abstract class BaseActivity : AppCompatActivity(), EventBus.OnEventListener<Even
     var isActivityResumed = false
         private set
 
-    protected var isDarkMode: Boolean = false
+    protected var isDarkMode: Boolean = true
 
     private var mTitleCenter = true
     private val statusBarHelper: StatusBarHelper by lazy { StatusBarHelper(this) }
@@ -220,6 +220,11 @@ abstract class BaseActivity : AppCompatActivity(), EventBus.OnEventListener<Even
 
             if (titleView != null) {
                 titleView.compoundDrawablePadding = MeasureUtil.dp2px(applicationContext, 5f)
+                titleView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                titleView.setSingleLine(true)
+                titleView.setSelected(true)
+                titleView.setFocusable(true)
+                titleView.setFocusableInTouchMode(true)
             }
             val actionBar = supportActionBar
             if (actionBar != null) {

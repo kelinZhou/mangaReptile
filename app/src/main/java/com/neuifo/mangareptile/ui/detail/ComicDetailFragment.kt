@@ -91,16 +91,22 @@ class ComicDetailFragment :
     ) {
         if (page == 1) {
             viewDelegate?.updateComicInfo(data.comicDetail)
-            data.comicDetail.chapters.map { it ->
-                itemList.add(ComicChapterCell(it) click@{ chapter ->
+            data.comicDetail.chapters.map { warpData ->
+                itemList.add(ComicChapterCell(warpData) click@{ chapter ->
                     if (chapter.chapterId == Chapter.SAMPLE) {
+                        Navigator.jumpToChapterDetail(
+                            requireActivity(),
+                            comicDetail.id,
+                            data.comicDetail.title,
+                            warpData
+                        )
                         return@click
                     }
                     Navigator.jumpToGallery(
                         requireActivity(),
                         comicDetail.id,
                         chapter.chapterId,
-                        data.comicDetail.chapters.first()
+                        warpData
                     )
                 })
             }
@@ -142,6 +148,7 @@ class ComicDetailFragment :
     private inner class ComicDetailFragmentCallback : ItemListDelegateCallbackImpl(),
         ComicDetailDelegate.ComicDetailDelegateCallback {
         override fun getComicCover(): ComicDetail = comicDetail
+
         override fun jumpToAuth(id: String) {
             LogHelper.system.e("作者id${id}")
         }
@@ -154,7 +161,9 @@ class ComicDetailFragment :
             ProxyFactory.createIdProxy<Long, Boolean> {
                 if (flag) API.DMZJ_Dmzj.subscribeComic(it) else API.DMZJ_Dmzj.unSubscribeComic(it)
             }.onSuccess { _, _ ->
-
+                viewDelegate?.updateSubscribeText(flag)
+            }.onFailed { _, _ ->
+                viewDelegate?.updateSubscribeText(!flag)
             }.request(initialRequestId)
         }
 

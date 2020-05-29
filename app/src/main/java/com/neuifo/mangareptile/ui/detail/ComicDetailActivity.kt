@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.hw.ycshareelement.YcShareElement
 import com.kelin.okpermission.OkActivityResult
+import com.neuifo.domain.model.base.WarpData
 import com.neuifo.mangareptile.SystemError
 import com.neuifo.mangareptile.ui.base.swip.SwipeBackFragmentActivity
 
@@ -17,6 +18,7 @@ class ComicDetailActivity : SwipeBackFragmentActivity() {
 
     companion object {
         private const val COMIC_DETAIL = 0x100
+        private const val COMIC_CHAPTER_DETAIL = 0x101
 
         fun startToDetail(
             context: Activity,
@@ -38,6 +40,18 @@ class ComicDetailActivity : SwipeBackFragmentActivity() {
             }
         }
 
+        fun startToChapterDetail(
+            context: Activity,
+            comicId: Long,
+            title: String,
+            warpData: WarpData
+        ) {
+            val jumpIntent =
+                getJumpIntent(context, ComicDetailActivity::class.java, COMIC_CHAPTER_DETAIL)
+            ChapterListFragment.setData(jumpIntent, comicId, title, warpData)
+            context.startActivity(jumpIntent)
+        }
+
     }
 
     override fun getCurrentFragment(targetPage: Int, intent: Intent): Fragment {
@@ -45,6 +59,10 @@ class ComicDetailActivity : SwipeBackFragmentActivity() {
             COMIC_DETAIL -> {
                 title = ""
                 createFragmentByClass(ComicDetailFragment::class.java, intent)
+            }
+            COMIC_CHAPTER_DETAIL -> {
+                title = ""
+                createFragmentByClass(ChapterListFragment::class.java, intent)
             }
             else -> onJumpError(SystemError.TARGET_PAGE_TYPE_NOT_HANDLER)
         }

@@ -51,6 +51,7 @@ interface DmzjApi {
     ): Observable<HttpResult<String>>
 
     @POST("/subscribe/cancel")
+    @FormUrlEncoded
     fun cancelSubscribe(
         @Field("obj_ids") comicId: Long,
         @Field("type") type: String = "mh"

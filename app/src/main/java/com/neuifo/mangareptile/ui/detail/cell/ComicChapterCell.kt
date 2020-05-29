@@ -11,17 +11,18 @@ import kotlinx.android.synthetic.main.item_comic_chapter.view.*
 
 class ComicChapterCell(
     var chapter: WarpData,
+    private val showAll: Boolean = false,
     var chapterClick: ((tag: Chapter) -> Unit)? = null
 ) :
     SimpleCell() {
 
-    val tempChapter: MutableList<Chapter> by lazy {
+    private val tempChapter: MutableList<Chapter> by lazy {
         arrayListOf<Chapter>()
     }
 
     override fun onBindData(iv: View) {
         tempChapter.clear()
-        if (chapter.data.size > Constansts.MAX_CHAPTER_SIZE) {
+        if (!showAll && chapter.data.size > Constansts.MAX_CHAPTER_SIZE) {
             chapter.data.mapIndexed { index, chapter ->
                 if (index <= Constansts.MAX_CHAPTER_SIZE) {
                     tempChapter.add(chapter)

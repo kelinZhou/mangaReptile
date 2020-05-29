@@ -347,6 +347,9 @@ class ComicReadActivity : AppCompatActivity(),
     }
 
     override fun onUpdateCurrentIndex(index: Int) {
+        GlobalScope.launch(Dispatchers.Main) {
+            progress.text = "$index/${provider.size()}"
+        }
         currentIndex = index
     }
 

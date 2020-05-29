@@ -31,4 +31,13 @@ object Navigator {
         ComicReadActivity.setData(intent, comicId, chapterId, chapter)
         context.startActivity(intent)
     }
+
+    fun jumpToChapterDetail(
+        context: Activity,
+        comicId: Long,
+        title: String,
+        warpData: WarpData
+    ) {
+        ComicDetailActivity.startToChapterDetail(context, comicId, title, warpData)
+    }
 }

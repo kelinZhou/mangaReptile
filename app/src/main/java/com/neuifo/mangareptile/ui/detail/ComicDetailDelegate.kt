@@ -36,6 +36,10 @@ class ComicDetailDelegate :
         ViewCompat.setTransitionName(layout_comic_detail_head_cover, cover)
     }
 
+    fun updateSubscribeText(flag: Boolean) {
+        layout_comic_detail_head_subscribe.text = flag.getSubscribedText()
+    }
+
     fun updateComicInfo(comicDetail: ComicDetail) {
         layout_comic_detail_head_title.text = comicDetail.title
         layout_item_comic_detail_toolbar_title.text = comicDetail.title

@@ -52,8 +52,7 @@
 
         <activity
             android:name=".ui.detail.ComicDetailActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.Common.Activity" />
+            android:theme="@style/AppTheme.Common" />
 
 
         <activity

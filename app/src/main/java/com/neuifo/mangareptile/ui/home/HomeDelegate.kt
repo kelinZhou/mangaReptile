@@ -70,7 +70,7 @@ class HomeDelegate : BaseViewDelegate<HomeDelegate.HomeDelegateCallback>(), Layo
     }
 
 
-    interface HomeDelegateCallback : BaseViewDelegate.BaseViewDelegateCallback
+    interface HomeDelegateCallback : BaseViewDelegateCallback
 
     override val rootLayoutId: Int
         get() = R.layout.fragment_home_root

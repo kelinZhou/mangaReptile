@@ -22,7 +22,7 @@ class CommonConverter<T> internal constructor(
         /*
          * 此处暂时只抛出异常，toast提示放到具体请求回调中
          */
-        return gson.fromJson(response, type) ?: throw JsonSyntaxException("数据解析错误")
+        return gson.fromJson(response, type) ?: throw JsonSyntaxException(response)
     }
 
 }
