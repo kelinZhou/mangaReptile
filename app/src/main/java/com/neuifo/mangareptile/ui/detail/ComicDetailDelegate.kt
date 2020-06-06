@@ -30,6 +30,9 @@ class ComicDetailDelegate :
     override val dataViewId: Int
         get() = R.id.list_view
 
+    override val rootLayoutId: Int
+        get() = R.layout.layout_comic_detail
+
 
     fun setInitShowData(cover: String) {
         ImageLoaderUtils.displayRoundCorners(layout_comic_detail_head_cover, cover, 20)
@@ -124,9 +127,6 @@ class ComicDetailDelegate :
         fun subscrbie(flag: Boolean)
         fun downLoad()
     }
-
-    override val rootLayoutId: Int
-        get() = R.layout.layout_comic_detail
 
     override fun getShareElements(): Array<ShareElementInfo<ComicDetail>> {
         return arrayOf(

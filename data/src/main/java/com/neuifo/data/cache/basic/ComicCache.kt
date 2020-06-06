@@ -10,11 +10,13 @@ interface ComicCache {
 
     fun queryLastReadChapterId(comicId: Long): Long
 
+    fun queryComicInitEd(): Boolean
+
     fun queryLastReadChapterName(comicId: Long): String
 
     fun hasSubscribed(comicId: Long): Int
 
-    fun queryLastReadPage(comicId: Long,chapterId: Long): Int
+    fun queryLastReadPage(comicId: Long, chapterId: Long): Int
 
     @Deprecated(" 影响shared element。弃用")
     fun saveComicDetail(detail: ComicDetail)

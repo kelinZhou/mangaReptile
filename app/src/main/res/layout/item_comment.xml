@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black_333">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_comment_parent_cover"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:scaleType="center"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@mipmap/ic_launcher"
+        tools:visibility="visible" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_comment_parent_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/green_18F304"
+        android:visibility="gone"
+        app:layout_constraintLeft_toRightOf="@id/item_comment_parent_cover"
+        app:layout_constraintTop_toTopOf="@id/item_comment_parent_cover"
+        tools:text="测试用户名" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_comment_child_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_comment_first"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_comment_parent_cover"
+        tools:text="测试阿拉山口大家福利卡圣诞节福利卡上的减肥啦" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_comment_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="25dp"
+        android:textColor="@color/yellow_FFFFEE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="12" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,5 @@
 package com.neuifo.mangareptile.utils
 
-import android.content.Context
-import android.content.res.ColorStateList
-import android.content.res.Resources.NotFoundException
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -12,11 +9,16 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
-import android.util.TypedValue
+import android.util.JsonReader
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.AttrRes
-import androidx.annotation.NonNull
+import com.google.gson.GsonBuilder
+import com.neuifo.domain.model.dmzj.ComicUpdate
+import org.json.JSONArray
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
 
 object ViewUtils {
 
@@ -165,4 +167,64 @@ object ViewUtils {
         )
         view.measure(w, h)
     }
+
+
+    fun decodeJson(inputStream: InputStream): MutableList<ComicUpdate> {
+        //val reader = JsonReader(InputStreamReader(inputStream, "UTF-8"))
+        val gson = GsonBuilder().create()
+        val jsonArray: JSONArray
+        var reader: BufferedReader? = null
+        val jsonStrs = StringBuilder()
+        try {
+            if (inputStream == null) {
+                return mutableListOf()
+            }
+            val inputStreamReader =
+                InputStreamReader(inputStream, "UTF-8")
+            reader = BufferedReader(inputStreamReader)
+            var tempStr: String? = null
+            while (reader.readLine().also { tempStr = it } != null) {
+                jsonStrs.append(tempStr)
+            }
+            reader.close()
+            inputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        jsonArray = JSONArray(jsonStrs.toString().trim())
+
+        val result = mutableListOf<ComicUpdate>()
+        for (i: Int in 0 until jsonArray.length()) {
+            val data = gson.fromJson(jsonArray.getJSONObject(i).toString(), DmzjDb::class.java)
+            result.add(
+                ComicUpdate(
+                    data.id,
+                    data.title,
+                    data.authors.joinToString("/"),
+                    data.types.joinToString { "/" },
+                    data.cover,
+                    data.status.joinToString { "/" },
+                    data.last_update_chapter_name,
+                    data.last_update_chapter_id,
+                    data.last_updatetime,
+                    "",
+                    0L
+                )
+            )
+        }
+        return result
+    }
+
+    data class DmzjDb(
+        val authors: List<String>,
+        val cover: String,
+        val id: Long,
+        val last_update_chapter_id: Long,
+        val last_update_chapter_name: String,
+        val last_updatetime: Long,
+        val status: List<String>,
+        val title: String,
+        val types: List<String>
+    )
 }

@@ -2,7 +2,8 @@ package com.neuifo.data.api.dmzj
 
 class Host {
     companion object {
-        val LATESTAPI = "http://v3api.dmzj.com"
-        val IMAGEAPI = "http://imgsmall.dmzj.com"
+        const val LATESTAPI = "http://v3api.dmzj.com"
+        const val IMAGEAPI = "http://imgsmall.dmzj.com"
+        const val COMMENT = "http://v3comment.dmzj.com"
     }
 }

@@ -45,8 +45,7 @@ class UpdateComicListFragment :
     ): MutableList<ComicUpdate> {
         return initialData.apply {
             addAll(data)
-            distinct()
-        }
+        }.distinct().toMutableList()
     }
 
     override fun onInterceptListItemClick(position: Int, item: ComicUpdateCell): Boolean {

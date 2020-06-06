@@ -21,7 +21,8 @@ import java.nio.charset.Charset
 /**
  * 请求头添加信息 Security-Token:获取的ticket
  */
-class HeadTokenInterceptor(private val ticket: String, private val uid: Long) : Interceptor {
+class HeadTokenInterceptor(private val ticket: String? = "", private val uid: Long) :
+    Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -51,8 +52,12 @@ class HeadTokenInterceptor(private val ticket: String, private val uid: Long) : 
                 .addQueryParameter(VERSION, VERSION_CODE)
                 .addQueryParameter(TIMESTAMP, System.currentTimeMillis().toString())
                 .addQueryParameter(DEBUG, DEBUG_VERSION)
-                .addQueryParameter(TOKEN, ticket)
-                .addQueryParameter(UID, "$uid")
+                .apply {
+                    if (!ticket.isNullOrEmpty()) {
+                        addQueryParameter(TOKEN, ticket)
+                        addQueryParameter(UID, "$uid")
+                    }
+                }
                 .build()
             val request = originalRequest.newBuilder().url(url).build()
             return chain.proceed(request)

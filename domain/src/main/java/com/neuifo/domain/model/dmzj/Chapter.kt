@@ -90,6 +90,25 @@ class Chapter(
         writeLong(pageNums)
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Chapter
+
+        if (comicId != other.comicId) return false
+        if (chapterId != other.chapterId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = comicId.hashCode()
+        result = 31 * result + chapterId.hashCode()
+        return result
+    }
+
+
     companion object {
         @JvmField
         val CREATOR: Parcelable.Creator<Chapter> = object : Parcelable.Creator<Chapter> {

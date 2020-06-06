@@ -4,6 +4,7 @@ import com.neuifo.domain.model.DownloadProgressListener
 import com.neuifo.domain.model.dmzj.Chapter
 import com.neuifo.domain.model.dmzj.ComicDetailWarpper
 import com.neuifo.domain.model.dmzj.ComicUpdate
+import com.neuifo.domain.model.dmzj.Comment
 import com.neuifo.domain.repo.Repo
 import com.neuifo.domain.request.AuthRequest
 import io.reactivex.Observable
@@ -26,4 +27,6 @@ interface DmzjRepo : Repo {
     fun subscribeComic(comicId: Long): Observable<Boolean>
 
     fun unSubscribeComic(comicId: Long): Observable<Boolean>
+
+    fun getCommentList(comicId: Long,page: Int): Observable<MutableList<Comment>>
 }

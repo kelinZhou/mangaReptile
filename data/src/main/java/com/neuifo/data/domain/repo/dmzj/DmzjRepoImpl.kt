@@ -1,6 +1,7 @@
 package com.neuifo.data.domain.repo.dmzj
 
 import android.content.Context
+import com.neuifo.data.api.dmzj.CommentApi
 import com.neuifo.data.api.dmzj.ImageApi
 import com.neuifo.domain.model.base.HttpResult
 import com.neuifo.data.api.dmzj.DmzjApi
@@ -8,6 +9,7 @@ import com.neuifo.data.api.dmzj.Host
 import com.neuifo.data.cache.CacheFactory
 import com.neuifo.data.cache.ComicDetailCacheImpl
 import com.neuifo.data.cache.basic.ComicCache
+import com.neuifo.data.converter.CommentConverter
 import com.neuifo.data.converter.CommonConverter
 import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.data.interceptor.DownloadProgressInterceptor
@@ -31,6 +33,15 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
             Host.LATESTAPI,
             CommonConverter::class.java,
             HeadTokenInterceptor("418dab9cd91f3d261a5f3f2ad57462be", 107228800)
+        )
+    }
+
+    private val commentApi: CommentApi by lazy {
+        RetrofitServiceFactory.createRetorfitService(
+            CommentApi::class.java,
+            Host.COMMENT,
+            CommentConverter::class.java,
+            HeadTokenInterceptor(uid = 107228800)
         )
     }
 
@@ -76,8 +87,9 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
                         if (!t1.isEmpty && t1.data.items.isNotEmpty()) {
                             t2.addAll(0, t1.data.items)
                             comicCache.saveComicUpdate(t1.data.items)
-                            comicCache.saveListSubscribe(t1.data.items
-                             )
+                            comicCache.saveListSubscribe(
+                                t1.data.items
+                            )
                         }
                         t2
                     })
@@ -110,15 +122,22 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
         page: Int,
         size: Int
     ): Observable<ComicDetailWarpper> {
-        return dmzjApi.getComicDetail(comicId).map {
-            val lastReadChapterId = comicCache.queryLastReadChapterId(it.id)
-            it.chapters.map { chapter ->
-                chapter.data.map { item ->
-                    item.showMarker = item.chapterId > lastReadChapterId
-                }
+        if (page == 1) {
+            return dmzjApi.getComicDetail(comicId)
+                .zipWith(getCommentList(comicId, page), BiFunction { detail, comment ->
+                    val lastReadChapterId = comicCache.queryLastReadChapterId(detail.id)
+                    detail.chapters.map { chapter ->
+                        chapter.data.map { item ->
+                            item.comicId = comicId
+                            item.showMarker = item.chapterId > lastReadChapterId
+                        }
+                    }
+                    ComicDetailWarpper(detail, comment)
+                })
+        } else {
+            return getCommentList(comicId, page).map {
+                ComicDetailWarpper(ComicDetail.createShareData(comicId, ""), it)
             }
-            //CacheFactory.instance.comicCache?.saveComicDetail(it)
-            ComicDetailWarpper(it, mutableListOf())
         }
     }
 
@@ -140,6 +159,10 @@ class DmzjRepoImpl(context: Context) : DmzjRepo {
             val body = it.body()
             body?.byteStream()
         }
+    }
+
+    override fun getCommentList(comicId: Long, page: Int): Observable<MutableList<Comment>> {
+        return commentApi.getComment(comicId, page)
     }
 
 }

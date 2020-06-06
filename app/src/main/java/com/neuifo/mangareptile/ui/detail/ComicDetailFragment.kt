@@ -17,6 +17,7 @@ import com.neuifo.mangareptile.ui.Navigator
 import com.neuifo.mangareptile.ui.base.listcell.SimpleCell
 import com.neuifo.mangareptile.ui.base.presenter.ItemListFragmentPresenter
 import com.neuifo.mangareptile.ui.detail.cell.ComicChapterCell
+import com.neuifo.mangareptile.ui.home.cell.CommentCell
 import com.neuifo.mangareptile.utils.statusbar.StatusBarHelper
 import io.reactivex.Observable
 
@@ -112,12 +113,17 @@ class ComicDetailFragment :
             }
         }
 
+        data.comment.map { comment ->
+            itemList.add(CommentCell(comment))
+        }
+
+
         //YcShareElement.setEnterTransitions(requireActivity(), comicDetailHeadCell)
         //itemList.add(comicDetailHeadCell)
     }
 
     override fun checkIfGotAllData(data: ComicDetailWarpper): Boolean {
-        return data.comment.isEmpty() || data.comment.size < 20
+        return data.comment.isEmpty() || data.comment.size < 10
     }
 
 

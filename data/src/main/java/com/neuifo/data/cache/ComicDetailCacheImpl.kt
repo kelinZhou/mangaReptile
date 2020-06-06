@@ -29,6 +29,10 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
     }
 
 
+    override fun queryComicInitEd(): Boolean {
+        return comicDB.dbComicDetailInfoQueries.query_init().executeAsOneOrNull() ?: 0L > 0
+    }
+
     override fun queryComicByIDs(ids: List<Long>): MutableList<ComicUpdate> {
         val executeAsList = comicDB.dbComicDetailInfoQueries.query_list_comic(ids).executeAsList()
         if (executeAsList.isNullOrEmpty()) {
@@ -44,7 +48,8 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
     }
 
     override fun queryLastReadChapterName(comicId: Long): String {
-        return comicDB.dbComicDetailInfoQueries.query_comic_last_read_name(comicId).executeAsOneOrNull()
+        return comicDB.dbComicDetailInfoQueries.query_comic_last_read_name(comicId)
+            .executeAsOneOrNull()
             ?.last_read_chapter_name ?: ""
     }
 
@@ -63,7 +68,8 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
     }
 
     override fun hasSubscribed(comicId: Long): Int {
-        return comicDB.dbComicDetailInfoQueries.query_subscribe(comicId).executeAsOneOrNull()?.subscribed?.toInt()
+        return comicDB.dbComicDetailInfoQueries.query_subscribe(comicId)
+            .executeAsOneOrNull()?.subscribed?.toInt()
             ?: 0
     }
 
@@ -112,8 +118,11 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
         }
     }
 
-    override fun queryLastReadPage(comicId: Long,chapterId: Long): Int {
-        return comicDB.dbComicDetailInfoQueries.query_last_read_page(comicId,chapterId).executeAsOneOrNull()?.last_read_index
+    override fun queryLastReadPage(comicId: Long, chapterId: Long): Int {
+        return comicDB.dbComicDetailInfoQueries.query_last_read_page(
+            comicId,
+            chapterId
+        ).executeAsOneOrNull()?.last_read_index
             ?.toInt() ?: 0
     }
 
@@ -128,13 +137,15 @@ class ComicDetailCacheImpl(var context: Context) : ComicCache {
                 chapterId,
                 chapterIndex.toLong(),
                 chapterName,
+                System.currentTimeMillis(),
                 comicId
             )
         }
     }
 
     override fun queryLastReadChapterId(comicId: Long): Long {
-        return comicDB.dbComicDetailInfoQueries.query_last_read_chapter_id(comicId).executeAsOneOrNull()?.last_read_chapter_id
+        return comicDB.dbComicDetailInfoQueries.query_last_read_chapter_id(comicId)
+            .executeAsOneOrNull()?.last_read_chapter_id
             ?: 0L
     }
 }

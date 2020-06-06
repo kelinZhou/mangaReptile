@@ -37,7 +37,7 @@
     <color name="grey_bg_D9D9D9">#D9D9D9</color>
     <color name="grey_ECECEC">#ECECEC</color>
 
-    <color name="yellow_ffffe">#FFFFEE</color>
+    <color name="comment_bg">#99C6C6C6</color>
 
     <color name="transparent">@android:color/transparent</color>
 
@@ -50,8 +50,8 @@
 
 
     <color name="red_f4333c">#F4333c</color>
-
-
+    <color name="yellow_FFFFEE">#FFFFEE</color>
+    <color name="green_18F304">#18F304</color>
 
 
 </resources>

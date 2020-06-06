@@ -61,7 +61,8 @@ class HomeDelegate : BaseViewDelegate<HomeDelegate.HomeDelegateCallback>(), Layo
                 indicator.setColors(Color.parseColor("#00574B"))
                 indicator.roundRadius = 10f
                 indicator.lineWidth = 60f
-                indicator.endInterpolator = DecelerateInterpolator(2.0f)
+                indicator.endInterpolator = DecelerateInterpolator(1.0f)
+
                 return indicator
             }
         }

@@ -21,7 +21,6 @@ import com.hippo.yorozuya.MathUtils
 import com.hippo.yorozuya.SimpleAnimatorListener
 import com.hippo.yorozuya.SimpleHandler
 import com.neuifo.data.cache.CacheFactory
-import com.neuifo.data.domain.utils.LogHelper
 import com.neuifo.domain.model.base.WarpData
 import com.neuifo.domain.model.dmzj.Chapter
 import com.neuifo.mangareptile.R
@@ -65,41 +64,70 @@ class ComicReadActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
         glRootView = findViewById<GLRootView>(R.id.gl_root_view)
+        updateChapter(intent.getLongExtra(CHAPTER_ID, 0L)) { chapter ->
+            setData(chapter)
+        }
+    }
 
-        ProxyFactory.createIdProxy<Long, Chapter> { id ->
-            API.DMZJ_Dmzj.getChapter(intent.getLongExtra(COMIC_ID, 0L), id)
-        }.onSuccess { _, chapter ->
-            currentChapter = chapter
-            setData(
-                chapter,
-                intent.getParcelableExtra(CHAPTERS)
-            )
-        }.onFailed { _, e ->
-            ToastUtil.showAlertToast(e.displayMessage)
-        }.request(intent.getLongExtra(CHAPTER_ID, 0L))
+    private val totalChapter: WarpData by lazy {
+        intent.getParcelableExtra(CHAPTERS) as WarpData
+    }
 
+    private val comicId: Long by lazy {
+        intent.getLongExtra(COMIC_ID, 0L)
     }
 
     lateinit var currentChapter: Chapter
-    lateinit var provider: GalleryProvider
+    lateinit var provider: ComicProvider
+    lateinit var galleryAdapter: GalleryAdapter
     lateinit var glRootView: GLRootView
     lateinit var galleryView: GalleryView
 
     var currentIndex = 0
 
-    private fun setData(startChapter: Chapter, chapter: WarpData) {
+
+    private fun updateChapter(chapterId: Long, onSuccess: (chapter: Chapter) -> Unit) {
+        ProxyFactory.createIdProxy<Long, Chapter> { id ->
+            API.DMZJ_Dmzj.getChapter(comicId, id)
+        }.onSuccess { _, chapter ->
+            currentChapter = chapter
+            onSuccess.invoke(chapter)
+        }.onFailed { _, e ->
+            ToastUtil.showAlertToast(e.displayMessage)
+        }.request(chapterId)
+    }
+
+    private fun goToNextChapter() {
+        val current = totalChapter.data.indexOf(currentChapter)
+        if (current == 0) {
+            ToastUtil.showAlertToast("已经是最新一章啦～")
+            return
+        }
+        updateChapter(totalChapter.data[current - 1].chapterId) { chapter ->
+            provider.comicId = chapter.comicId
+            provider.currentChapter = chapter
+            galleryView.onPause()
+            GlobalScope.launch(Dispatchers.IO) {
+                galleryView.removeAllComponents()
+                provider.notifyDataChanged()
+                galleryView.setCurrentPage(0)
+            }
+        }
+    }
+
+    private fun setData(startChapter: Chapter) {
         currentIndex = CacheFactory.instance.comicCache?.queryLastReadPage(
             startChapter.comicId,
             startChapter.chapterId
         ) ?: 0
-        provider = ComicProvider(startChapter.comicId, startChapter, chapter)
+        provider = ComicProvider(startChapter.comicId, startChapter)
         provider.start()
-        val adapter = GalleryAdapter(glRootView, provider)
-        provider.setListener(adapter)
+        galleryAdapter = GalleryAdapter(glRootView, provider)
+        provider.setListener(galleryAdapter)
         provider.setGLRoot(glRootView)
         right.text = "${startChapter.pageNums}"
 
-        galleryView = GalleryView.Builder(this, adapter)
+        galleryView = GalleryView.Builder(this, galleryAdapter)
             .setListener(this)
             .setLayoutMode(Settings.getReadingDirection())
             .setScaleMode(Settings.getPageScaling())
@@ -294,8 +322,15 @@ class ComicReadActivity : AppCompatActivity(),
     }
 
 
-    private class GalleryAdapter(glRootView: GLRootView, provider: GalleryProvider) :
-        SimpleAdapter(glRootView, provider)
+    class GalleryAdapter(glRootView: GLRootView, provider: GalleryProvider) :
+        SimpleAdapter(glRootView, provider) {
+
+        override fun onDataChanged() {
+            super.onDataChanged()
+
+        }
+
+    }
 
     override fun onLongPressPage(index: Int) {
         provider.forceRequest(index)
@@ -304,6 +339,16 @@ class ComicReadActivity : AppCompatActivity(),
     override fun onTapSliderArea() {
         GlobalScope.launch(Dispatchers.Main) {
             if (seek_bar_panel.visibility == View.VISIBLE) {
+                StyleHelper.showCommonConfirmAgainDialog(
+                    this@ComicReadActivity,
+                    "进入下一话？",
+                    "确定",
+                    "取消"
+                ).subscribe { flag ->
+                    if (flag) {
+                        goToNextChapter()
+                    }
+                }
                 hideSlider(seek_bar_panel)
             } else {
                 showSlider(seek_bar_panel)

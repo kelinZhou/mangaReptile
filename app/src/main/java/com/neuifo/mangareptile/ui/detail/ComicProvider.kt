@@ -19,22 +19,10 @@ import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
 
-class ComicProvider(var comicId: Long, var currentChapter: Chapter, var chapter: WarpData) :
+class ComicProvider(var comicId: Long, var currentChapter: Chapter) :
     GalleryProvider(),
     ProxyOwner {
 
-    private val chapterRequester: IdDataProxy<Long, Chapter> by lazy {
-        ProxyFactory.createIdProxy<Long, Chapter> { id ->
-            API.DMZJ_Dmzj.getChapter(comicId, id)
-        }.bind(this)
-            .onSuccess { id, data ->
-                currentChapter = data
-                onRequest(0)
-            }
-            .onFailed { _, e ->
-                errorMsg = e.displayMessage
-            }
-    }
 
     private val imageRequester: ImageDataProxy by lazy {
         ImageDataProxy()
@@ -46,7 +34,6 @@ class ComicProvider(var comicId: Long, var currentChapter: Chapter, var chapter:
     override fun stop() {
         super.stop()
         imageRequester.unbind(true)
-        chapterRequester.unbind(true)
     }
 
 
@@ -78,9 +65,9 @@ class ComicProvider(var comicId: Long, var currentChapter: Chapter, var chapter:
 
             override fun update(bytesRead: Long, contentLength: Long, done: Boolean) {
                 var progress = DecimalFormat("######0.0").format(bytesRead / (contentLength / 100f))
-                GlobalScope.launch {
-                    notifyPagePercent(downloadIndex, progress.toFloat())
-                }
+//                GlobalScope.launch {
+//                    notifyPagePercent(downloadIndex, progress.toFloat())
+//                }
             }
         })
         if (request == null) {
